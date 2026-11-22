@@ -1,0 +1,612 @@
+<title>Axiom WorldEdit GUI</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column for prose, a wider track for tables; sections follow the order of the research brief. */
+:root {
+  --bg: #f2f4f3;
+  --surface: #ffffff;
+  --sunk: #e8ecea;
+  --ink: #18211d;
+  --muted: #5a6761;
+  --line: #d3dbd7;
+  --accent: #2f55b5;
+  --accent-soft: #e3e9f8;
+  --yes: #24744a; --yes-bg: #dcefe3;
+  --part: #9a6410; --part-bg: #f6ead3;
+  --no: #b2372f; --no-bg: #f7dfdc;
+  --skip: #6f7a75; --skip-bg: #e6eae8;
+  --f-display: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111614; --surface: #19201d; --sunk: #202825; --ink: #e3eae6; --muted: #9aa7a1; --line: #2d3733;
+    --accent: #93abff; --accent-soft: #232c45;
+    --yes: #7fd3a1; --yes-bg: #1c3427; --part: #e9bb6b; --part-bg: #3a2e17; --no: #f29a91; --no-bg: #3d2220; --skip: #a3aea9; --skip-bg: #262e2b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111614; --surface: #19201d; --sunk: #202825; --ink: #e3eae6; --muted: #9aa7a1; --line: #2d3733;
+  --accent: #93abff; --accent-soft: #232c45;
+  --yes: #7fd3a1; --yes-bg: #1c3427; --part: #e9bb6b; --part-bg: #3a2e17; --no: #f29a91; --no-bg: #3d2220; --skip: #a3aea9; --skip-bg: #262e2b;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15.5px; line-height: 1.6; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 80px; display: flex; flex-direction: column; gap: 56px; }
+.prose { max-width: 70ch; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800; }
+h2 { font-size: 1.6rem; font-weight: 800; }
+h3 { font-size: 1.12rem; font-weight: 700; }
+p { margin: 0; }
+a { color: var(--accent); }
+code, .mono { font-family: var(--f-mono); font-size: 0.86em; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.eyebrow { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+section { display: flex; flex-direction: column; gap: 20px; scroll-margin-top: 16px; }
+.sec-head { display: flex; flex-direction: column; gap: 6px; border-top: 2px solid var(--ink); padding-top: 14px; }
+.sec-num { font-family: var(--f-mono); font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+.lead { font-size: 1.08rem; color: var(--muted); max-width: 68ch; }
+header.top { display: flex; flex-direction: column; gap: 18px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; }
+.fact { font-family: var(--f-mono); font-size: 0.8rem; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 4px 9px; }
+.fact b { color: var(--accent); font-weight: 600; }
+nav.toc { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.92rem; }
+nav.toc a { text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--line); }
+nav.toc a:hover { border-color: var(--accent); color: var(--accent); }
+
+.verdict { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 6px; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; }
+.verdict ol { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 8px; }
+.verdict li::marker { font-family: var(--f-mono); color: var(--accent); }
+
+/* command groups */
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 0.88rem; color: var(--muted); }
+.pill { display: inline-block; font-family: var(--f-mono); font-size: 0.72rem; font-weight: 600; padding: 1px 7px; border-radius: 999px; white-space: nowrap; }
+.pill.yes { color: var(--yes); background: var(--yes-bg); }
+.pill.part { color: var(--part); background: var(--part-bg); }
+.pill.no { color: var(--no); background: var(--no-bg); }
+.pill.skip { color: var(--skip); background: var(--skip-bg); }
+.grp { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+.grp + .grp { margin-top: -12px; }
+.grp summary { cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 12px 16px; list-style: none; }
+.grp summary::-webkit-details-marker { display: none; }
+.grp summary::before { content: "▸"; color: var(--muted); font-size: 0.8rem; width: 0.8em; }
+.grp[open] summary::before { content: "▾"; }
+.gt { font-family: var(--f-display); font-weight: 700; flex: 1 1 220px; min-width: 0; }
+.cnt { font-family: var(--f-mono); font-size: 0.82rem; color: var(--muted); min-width: 2.2em; text-align: right; font-variant-numeric: tabular-nums; }
+.mini { display: flex; width: 120px; height: 8px; border-radius: 2px; overflow: hidden; background: var(--sunk); gap: 1px; }
+.mini i { display: block; min-width: 0; }
+.mini .yes { background: var(--yes); } .mini .part { background: var(--part); } .mini .no { background: var(--no); } .mini .skip { background: var(--skip); opacity: .5; }
+.cnums { font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 13em; }
+.tw { overflow-x: auto; border-top: 1px solid var(--line); }
+table { border-collapse: collapse; width: 100%; }
+th { text-align: left; font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 8px 12px; background: var(--sunk); }
+td { padding: 9px 12px; border-top: 1px solid var(--line); vertical-align: top; font-size: 0.9rem; }
+.cmdt { min-width: 780px; }
+.cmdt td.cmd { width: 40%; }
+.cmdt td.ax { width: 24%; }
+.cmd code { font-weight: 600; color: var(--ink); }
+.alias { font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); }
+.sig { font-family: var(--f-mono); font-size: 0.76rem; margin-top: 3px; display: flex; flex-wrap: wrap; gap: 3px 6px; }
+.req { color: var(--accent); }
+.opt { color: var(--muted); }
+.flag { background: var(--sunk); border-radius: 3px; padding: 0 4px; color: var(--ink); cursor: help; }
+.fd { font-size: 0.8rem; color: var(--muted); margin-top: 3px; }
+.axnote { display: block; font-size: 0.8rem; color: var(--muted); margin-top: 3px; }
+tr.st-no td.cmd { box-shadow: inset 3px 0 0 var(--no); }
+
+/* generic tables */
+.tbl { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; overflow-x: auto; }
+.tbl table { min-width: 680px; }
+.tbl td:first-child { font-weight: 600; }
+.syntax td:first-child { font-family: var(--f-mono); font-weight: 600; white-space: nowrap; color: var(--accent); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.box h3 { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.box h3 .n { font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); font-weight: 400; }
+.box p, .box li { font-size: 0.9rem; }
+.box ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 3px; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag { font-family: var(--f-mono); font-size: 0.74rem; background: var(--sunk); border-radius: 3px; padding: 1px 6px; }
+.src { font-family: var(--f-mono); font-size: 0.72rem; color: var(--muted); word-break: break-all; }
+
+.value { display: flex; flex-direction: column; gap: 10px; }
+.tier { display: grid; grid-template-columns: 150px 1fr; gap: 6px 18px; padding: 14px 0; border-top: 1px solid var(--line); }
+.tier h3 { font-size: 1rem; }
+.tier ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 5px; font-size: 0.92rem; }
+@media (max-width: 640px) { .tier { grid-template-columns: 1fr; } }
+
+.decision { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px 22px; display: flex; flex-direction: column; gap: 14px; }
+.opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.opt-card { border: 1px solid var(--line); border-radius: 5px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; font-size: 0.9rem; min-width: 0; }
+.opt-card.pick { border-color: var(--accent); background: var(--accent-soft); }
+.opt-card h4 { margin: 0; font-family: var(--f-display); font-size: 0.95rem; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.opt-card ul { margin: 0; padding-left: 1.1em; }
+.badge { font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase; background: var(--accent); color: var(--surface); padding: 1px 6px; border-radius: 3px; }
+.rec { border-top: 1px dashed var(--line); padding-top: 12px; font-size: 0.94rem; display: flex; flex-direction: column; gap: 8px; }
+.rec strong { color: var(--accent); }
+pre.code { background: var(--sunk); border-radius: 5px; padding: 12px 14px; overflow-x: auto; font-family: var(--f-mono); font-size: 0.8rem; line-height: 1.5; margin: 0; }
+pre.mermaid { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; overflow-x: auto; margin: 0; }
+
+.phases { display: flex; flex-direction: column; gap: 0; }
+.phase { display: grid; grid-template-columns: 92px 1fr; gap: 6px 20px; padding: 18px 0; border-top: 1px solid var(--line); }
+.phase .pn { font-family: var(--f-mono); font-size: 0.8rem; color: var(--accent); font-weight: 600; display: flex; flex-direction: column; gap: 2px; }
+.phase .pn span { color: var(--muted); font-weight: 400; }
+.phase .pb { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.phase ul { margin: 0; padding-left: 1.1em; font-size: 0.92rem; display: flex; flex-direction: column; gap: 4px; }
+.done { font-size: 0.86rem; color: var(--muted); }
+@media (max-width: 640px) { .phase { grid-template-columns: 1fr; } }
+
+.risks td:nth-child(2) { white-space: nowrap; }
+.sev { font-family: var(--f-mono); font-size: 0.72rem; font-weight: 600; }
+.sev.h { color: var(--no); } .sev.m { color: var(--part); } .sev.l { color: var(--skip); }
+
+.qs { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; counter-reset: q; }
+.qs li { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px 14px 52px; position: relative; counter-increment: q; font-size: 0.93rem; display: flex; flex-direction: column; gap: 4px; }
+.qs li::before { content: "В" counter(q); position: absolute; left: 14px; top: 14px; font-family: var(--f-mono); font-weight: 600; color: var(--accent); font-size: 0.85rem; }
+.qs .def { color: var(--muted); font-size: 0.86rem; }
+footer { color: var(--muted); font-size: 0.84rem; border-top: 1px solid var(--line); padding-top: 16px; display: flex; flex-direction: column; gap: 4px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <div class="eyebrow">План аддона · исследование по jar-файлам · 22.11.2026</div>
+  <h1>Axiom WorldEdit GUI</h1>
+  <p class="lead">Открытый Fabric-аддон для Axiom 6.1.5, который даёт доступ ко всему WorldEdit 7.4.6 из редактора Axiom в одиночной игре: меню, окна, инструменты, редакторы паттернов и масок, общий журнал отмены. Здесь собраны список функций обоих модов, сравнение, архитектура и план работ. Кода пока нет.</p>
+  <div class="facts">
+    <span class="fact">WorldEdit <b>7.4.6+7648</b></span>
+    <span class="fact"><b>{{TOTAL}}</b> команд в 22 классах</span>
+    <span class="fact">Axiom <b>6.1.5</b></span>
+    <span class="fact"><b>34</b> инструмента · <b>7</b> builder tools · <b>29</b> окон</span>
+    <span class="fact">MC <b>26.3</b> · Fabric <b>0.20.1</b> · Java <b>25</b></span>
+  </div>
+  <nav class="toc" aria-label="Разделы">
+    <a href="#we">1. WorldEdit</a><a href="#axiom">2. Axiom</a><a href="#compare">3. Сравнение</a><a href="#arch">4. Архитектура</a><a href="#phases">5. Этапы</a><a href="#risks">6. Риски</a><a href="#questions">7. Вопросы</a>
+  </nav>
+</header>
+
+<div class="verdict">
+  <h3>Коротко: что я рекомендую</h3>
+  <ol>
+    <li><b>Вызывать WorldEdit напрямую на встроенном сервере</b> через общий интерфейс <code>WeBackend</code>. Команда разбирается самим WE, а вывод перехватывает свой <code>Actor</code>, поэтому чат не засоряется. Это даёт точную форму выделения Axiom и общий буфер обмена. Отправка команд от игрока остаётся запасным вариантом, если позже понадобятся серверы.</li>
+    <li><b>Один журнал отмены — журнал Axiom.</b> Каждая операция WE записывается в историю Axiom как отдельный шаг, а в историю WE не попадает. Ctrl+Z, Ctrl+Y и окно History отменяют правки Axiom и WE в общем порядке.</li>
+    <li><b>Главное выделение — выделение Axiom</b>, синхронизация в обе стороны. Axiom → WE через свой <code>RegionSelector</code> с точной формой. WE → Axiom через пакеты CUI-протокола: он вложен в сам WorldEdit, поэтому WorldEditCUI не нужен. Рисует выделение Axiom.</li>
+    <li><b>UI встраивать миксинами</b>: пункт «WorldEdit» в <code>MainMenuBar.render()</code> и свои ImGui-окна в цикле отрисовки <code>EditorUI</code>. Кисти WE сделать инструментами Axiom через официальный <code>ToolRegistryService</code> из axiomclientapi.</li>
+    <li><b>Формы строить по схеме команд</b>, которую я извлёк из аннотаций <code>@Command</code>, <code>@Arg</code> и <code>@Switch</code>: {{TOTAL}} команд с аргументами, значениями по умолчанию и флагами. Для самых частых команд сделать отдельные окна вручную.</li>
+    <li><b>Паттерн и маска хранятся строкой WE</b>, а визуальный редактор её собирает: блоки из палитры Axiom, веса в процентах, теги, состояния. Проверку и подсказки даёт сам WE через <code>PatternFactory</code> и <code>MaskFactory</code>.</li>
+  </ol>
+</div>
+
+<div class="tbl"><table>
+  <thead><tr><th>Решено 22.11.2026</th><th>Что из этого следует</th></tr></thead>
+  <tbody>
+    <tr><td>Только одиночная игра</td><td>Основа — прямой вызов API WE. Серверы (команды, CUI, AxiomPaper) откладываются до отдельного решения</td></tr>
+    <tr><td>Общий журнал Axiom</td><td>Операции WE отменяются через Ctrl+Z Axiom. Правки сущностей остаются в <code>//undo</code> WE и помечаются в интерфейсе</td></tr>
+    <tr><td>Open source</td><td>Мод вызывает API WorldEdit (GPL-3.0), поэтому выпускается под GPL-3.0</td></tr>
+  </tbody>
+</table></div>
+
+<section id="status">
+  <div class="sec-head"><span class="sec-num">Статус</span><h2>Сделано к утру 22.11.2026, версия 0.2.0</h2></div>
+  <p class="prose">Мод собран и установлен в сборку <code>PWGood__26.3</code>. Всё ниже проверено в игре в одиночном мире, кроме отдельно отмеченного.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Что</th><th>Как работает</th><th>Проверка</th></tr></thead>
+    <tbody>
+      <tr><td>Меню WorldEdit</td><td>Операции, Консоль, Все команды, переключатели общего журнала и скрытия WorldEditCUI</td><td><span class="pill yes">в игре</span></td></tr>
+      <tr><td>Все команды</td><td>185 команд и подкоманд из дерева команд WE, поиск, форма с полями для каждой</td><td><span class="pill yes">в игре</span></td></tr>
+      <tr><td>Прямой вызов WE</td><td>Команды выполняются на встроенном сервере, ответы WE идут в консоль аддона, включая поздние ответы асинхронных команд (//distr, //schem load)</td><td><span class="pill yes">в игре</span></td></tr>
+      <tr><td>Общий журнал</td><td>Правки WE попадают в историю Axiom: Ctrl+Z, Ctrl+Y и окно History. Правки с сущностями или биомами остаются в //undo WE</td><td><span class="pill yes">в игре</span> блоки, сундуки; <span class="pill part">не проверено</span> содержимое сундуков</td></tr>
+      <tr><td>Выделение Axiom → WE</td><td>Рамка становится кубоидом WE, произвольная форма передаётся точно (свой Region)</td><td><span class="pill yes">в игре</span></td></tr>
+      <tr><td>Выделение WE → Axiom</td><td>После //pos1, //pos2, //sel и кликов палкой WE новое выделение появляется в Axiom</td><td><span class="pill yes">в игре</span></td></tr>
+      <tr><td>Окно операций</td><td>Ландшафт, формулы с пресетами и справкой, генерация, выделение, сущности, сессия</td><td><span class="pill yes">в игре</span> //walls, формы</td></tr>
+      <tr><td>Поля паттернов и масок</td><td>Проверка парсером WE при вводе, активный блок, редактор смеси с весами, «Из Axiom» для масок</td><td><span class="pill yes">в игре</span> проверка и редактор смеси; <span class="pill part">не проверено</span> импорт маски из Axiom</td></tr>
+      <tr><td>Фигуры по рамке</td><td>Эллипсоид, цилиндр, сфера, рамка через //sel</td><td><span class="pill yes">в игре</span></td></tr>
+      <tr><td>Буфер обмена</td><td>Axiom → WE и WE → Axiom, с учётом //rotate и //flip</td><td><span class="pill yes">в игре</span></td></tr>
+      <tr><td>Схематики и CraftScripts</td><td>Загрузка схематики в WE или сразу в Axiom, сохранение буфера, запуск скриптов</td><td><span class="pill yes">в игре</span> загрузка в Axiom; <span class="pill part">не проверено</span> сохранение и скрипты</td></tr>
+      <tr><td>Кисть WorldEdit</td><td>Инструмент Axiom: любая кисть //brush, включая //brush apply и //brush paint с параметрами группы, рисование правой кнопкой, маска, один мазок = одна запись в истории</td><td><span class="pill yes">в игре</span> sphere и apply set одиночным кликом; <span class="pill part">не проверено</span> протяжка мышью</td></tr>
+      <tr><td>Скрытие WorldEditCUI</td><td>Линии WorldEditCUI не рисуются, пока открыт редактор Axiom</td><td><span class="pill yes">в игре</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="prose">Осталось из плана: отдельные окна снапшотов и чанков (сейчас доступны через «Все команды»), горячие клавиши, режим серверов.</p>
+  <p class="prose">Замечено при тестах: при выходе из мира игра трижды зависла. В дампе потоков кода аддона нет: клиент ждёт задачу от уже остановленного сервера, а в логе каждый раз предупреждение FastQuit «was not registered in currently saving worlds». В сборке стоит <code>fastquit-3.1.5+mc26.2</code>, собранный под 26.2. Мир к моменту зависания сохранён.</p>
+</section>
+
+<!-- 1 -->
+<section id="we">
+  <div class="sec-head"><span class="sec-num">1</span><h2>WorldEdit 7.4.6: полный список функций</h2></div>
+  <p class="prose">Источник — классы <code>com.sk89q.worldedit.command.*Commands</code> из <code>worldedit-mod-7.4.6.jar</code>, декомпилированные Vineflower. Имена, аргументы, значения по умолчанию, флаги и описания взяты из аннотаций Piston. Колонка «В Axiom» — моя оценка по разделу 2. Флаги наведением показывают описание. Красная полоса слева — команды, которых в Axiom нет.</p>
+  <div class="legend">
+    <span class="pill yes">есть</span> {{T_YES}}
+    <span class="pill part">частично</span> {{T_PART}}
+    <span class="pill no">нет</span> {{T_NO}}
+    <span class="pill skip">служебная</span> {{T_SKIP}}
+    <span>· <span class="req">&lt;обязательный&gt;</span> <span class="opt">[необязательный=по умолчанию]</span> <span class="flag">-флаг</span></span>
+  </div>
+<!--WE_TABLES-->
+
+  <h3>Маски, паттерны и выражения</h3>
+  <p class="prose">Синтаксис взят из парсеров <code>extension.factory.parser.mask.*</code> и <code>parser.pattern.*</code>. Именно его должен собирать визуальный редактор.</p>
+  <div class="tbl syntax"><table>
+    <thead><tr><th>Синтаксис</th><th>Где</th><th>Значение</th></tr></thead>
+    <tbody>
+      <tr><td>stone,dirt</td><td>маска, паттерн</td><td>Список блоков; в паттерне — равновероятный выбор</td></tr>
+      <tr><td>30%stone,70%andesite</td><td>паттерн</td><td>Случайный паттерн с весами (RandomPatternParser)</td></tr>
+      <tr><td>##logs</td><td>маска, паттерн</td><td>Тег блоков (BlockCategory)</td></tr>
+      <tr><td>*oak_stairs</td><td>паттерн</td><td>Блок со случайным состоянием (RandomStatePattern)</td></tr>
+      <tr><td>^[facing=north] · ^oak_log</td><td>паттерн</td><td>Поменять состояние или тип, сохранив остальное (TypeOrStateApplying)</td></tr>
+      <tr><td>#clipboard · #copy@[x,y,z]</td><td>маска, паттерн</td><td>Буфер обмена как маска или как повторяемый паттерн со смещением</td></tr>
+      <tr><td>#existing · #solid · #air · #fullcube</td><td>маска</td><td>Не воздух · твёрдые · воздух · полные кубы</td></tr>
+      <tr><td>#exposed · #surface</td><td>маска</td><td>Блоки, у которых есть открытая грань</td></tr>
+      <tr><td>#region · #sel · #dregion</td><td>маска</td><td>Текущее выделение; <code>#d…</code> пересчитывается при его изменении</td></tr>
+      <tr><td>^[waterlogged=true] · ^=[…]</td><td>маска</td><td>Состояние блока: частичное или строгое совпадение</td></tr>
+      <tr><td>$plains</td><td>маска</td><td>Биом</td></tr>
+      <tr><td>%50</td><td>маска</td><td>Шум: пропускает 50% блоков</td></tr>
+      <tr><td>&gt;stone · &lt;stone · ~stone</td><td>маска</td><td>Над камнем · под камнем · рядом с камнем</td></tr>
+      <tr><td>!mask</td><td>маска</td><td>Отрицание</td></tr>
+      <tr><td>mask1 mask2</td><td>маска</td><td>Пробел означает И (пересечение)</td></tr>
+      <tr><td>=y&gt;64&amp;&amp;rand()&lt;0.5</td><td>маска</td><td>Выражение (ExpressionMaskParser)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid">
+    <div class="box"><h3>Функции выражений <span class="n">Functions</span></h3>
+      <div class="tags"><span class="tag">sin cos tan … (java.lang.Math)</span><span class="tag">random</span><span class="tag">randint</span><span class="tag">perlin</span><span class="tag">voronoi</span><span class="tag">ridgedmulti</span><span class="tag">query / queryAbs / queryRel</span><span class="tag">megabuf / gmegabuf</span><span class="tag">closest / gclosest</span><span class="tag">rotate</span><span class="tag">swap</span></div>
+      <p>Используются в <code>//generate</code>, <code>//generatebiome</code>, <code>//deform</code>, кисти <code>deform</code>, маске <code>=…</code> и в <code>//calc</code>. Ключи <code>-r</code>, <code>-o</code> и <code>-c</code> задают начало координат.</p></div>
+    <div class="box"><h3>Типы выделения <span class="n">SelectorChoice</span></h3>
+      <div class="tags"><span class="tag">cuboid</span><span class="tag">extend</span><span class="tag">poly</span><span class="tag">polyextend</span><span class="tag">ellipsoid</span><span class="tag">sphere</span><span class="tag">cyl</span><span class="tag">convex</span></div>
+      <p>Формы для кистей (<code>RegionFactory</code>): <code>cuboid</code>, <code>sphere</code>, <code>cyl</code>.</p></div>
+    <div class="box"><h3>Справочники</h3>
+      <ul>
+        <li>Форматы схематик: <code>sponge.3</code> (по умолчанию, .schem), <code>sponge.2</code>, <code>sponge.1</code>, <code>mcedit</code> (.schematic)</li>
+        <li>Side effects для <code>//perf</code> и <code>//update</code>: LIGHTING, NEIGHBORS, UPDATE, VALIDATION, ENTITY_AI, EVENTS, POI_UPDATE, NETWORK</li>
+        <li>Деревья: 30 типов, включая mangrove, cherry, pale_oak и pale_oak_creaking</li>
+        <li>Удаление сущностей: projectiles, items, paintings, itemframes, boats, minecarts, tnt, xp, all</li>
+        <li>CraftScripts: Rhino (<code>org.mozilla</code>) встроен в jar</li>
+      </ul></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section id="axiom">
+  <div class="sec-head"><span class="sec-num">2</span><h2>Axiom 6.1.5: что уже есть</h2></div>
+  <p class="prose">Источник — пакеты <code>com.moulberry.axiom.*</code> и <code>assets/axiom/lang/en_us.json</code> (1234 ключа) из <code>Axiom-6.1.5-for-MC26.3.jar</code>. Важная особенность: все операции Axiom считает клиент, а сервер применяет готовые буферы блоков через пакеты Axiom. WorldEdit, наоборот, считает всё на сервере.</p>
+  <div class="grid">
+    <div class="box"><h3>Инструменты <span class="n">tools.*, 34 имени</span></h3>
+      <div class="tags"><span class="tag">Selection</span><span class="tag">Box Select</span><span class="tag">Magic Select</span><span class="tag">Lasso Select</span><span class="tag">Freehand Select</span><span class="tag">Painter</span><span class="tag">Noise Painter</span><span class="tag">Gradient Painter</span><span class="tag">Biome Painter</span><span class="tag">Freehand Draw</span><span class="tag">Sculpt Draw</span><span class="tag">Shape</span><span class="tag">Path</span><span class="tag">Stamp</span><span class="tag">Text</span><span class="tag">Floodfill</span><span class="tag">Fluid Ball</span><span class="tag">Clentaminator</span><span class="tag">Elevation</span><span class="tag">Flatten</span><span class="tag">Smooth</span><span class="tag">Slope</span><span class="tag">Roughen</span><span class="tag">Melt</span><span class="tag">Blend</span><span class="tag">Distort</span><span class="tag">Extrude</span><span class="tag">Shatter</span><span class="tag">Weld</span><span class="tag">Rock</span><span class="tag">Modelling</span><span class="tag">Script Brush (Lua)</span><span class="tag">Ruler</span><span class="tag">Annotation</span></div>
+      <p>Формы кистей: sphere, cube, cylinder, cone, capsule, octahedron, flat disk, single point.</p></div>
+    <div class="box"><h3>Builder tools <span class="n">buildertools.*</span></h3>
+      <div class="tags"><span class="tag">Move</span><span class="tag">Clone</span><span class="tag">Stack</span><span class="tag">Smear</span><span class="tag">Extrude</span><span class="tag">Mirror</span><span class="tag">Erase</span></div>
+      <p>Работают над выделением через гизмо; есть симметрия (<code>BuildSymmetry</code>).</p></div>
+    <div class="box"><h3>Операции <span class="n">меню Operations</span></h3>
+      <ul>
+        <li>Fill: Fill, Fill Walls, Fill Outline, Fill Top, Fill Bottom, Noise Fill, Fill Nearest, Fill Gaps, Fill Unreachable</li>
+        <li>Replace, Type Replace, Palette Replace, Set Biome</li>
+        <li>Hollow, Drain, Waterlog, Smoothsnow, Autoshade, Generate Colour Field</li>
+        <li>Simulate Gravity, Trigger Updates, Trigger Updates &amp; Tick, Analyze, Animated Rebuild</li>
+        <li>Create: Cuboid, Sphere, Cylinder, Cone, Pyramid</li>
+      </ul></div>
+    <div class="box"><h3>Выделение <span class="n">clipboard.Selection</span></h3>
+      <ul>
+        <li>Буфер выделения бывает двух видов: <code>SelectionBuffer.AABB</code> (прямоугольник) и <code>SelectionBuffer.Set</code> (произвольный набор вокселей)</li>
+        <li>API: <code>addAABB</code>, <code>subtractAABB</code>, <code>intersectAABB</code>, <code>addSet</code>, <code>set(ChunkedBooleanRegion)</code>, <code>move</code>, <code>min</code>/<code>max</code>, <code>contains</code>, история выделения</li>
+        <li>Меню Select: Expand, Shrink, Smooth, Distort, Filter (по маске), Bounding Box, Clear</li>
+      </ul></div>
+    <div class="box"><h3>Маски <span class="n">mask.*</span></h3>
+      <ul>
+        <li>Элементы: block, above, below, adjacent, near, neighbor, biome, coord, angle, can see sky, solid, surface, selected, offset, Lua; связки И, ИЛИ, НЕ</li>
+        <li>Три представления одной маски: визуальные блоки, строка <code>CmdStringConverter</code> вида <code>below = stone &amp; !(y &gt; 64)</code>, Lua</li>
+        <li>Маски источника и назначения в окне Tool Masks</li>
+      </ul></div>
+    <div class="box"><h3>Буфер обмена и файлы</h3>
+      <ul>
+        <li>Clipboard с историей, Placement с поворотом и масштабом на любой угол</li>
+        <li>Блюпринты (локальные и серверные), Blueprint Browser</li>
+        <li>Импорт <code>.schem</code> (Sponge) и <code>.litematic</code>; экспорт <code>.schem</code> Sponge v2 со смещением WorldEdit</li>
+      </ul></div>
+    <div class="box"><h3>Окна <span class="n">EditorWindowType, 29</span></h3>
+      <p>Tools, Tool Options, Palette, Inventory, Active Block, History, World Properties, Clipboard, Target Info, Text Annotations, Keybinds, Blueprint Browser, Tool Masks, Style Editor, окна выделения (4) и операций (10), Rotate Placement.</p>
+      <p><code>EditorWindowType</code> — enum, добавить в него свой тип нельзя. Окна рисуются подряд в <code>EditorUI</code>.</p></div>
+    <div class="box"><h3>Режимы <span class="n">capabilities.*</span></h3>
+      <div class="tags"><span class="tag">Bulldozer</span><span class="tag">Replace Mode</span><span class="tag">Force Place</span><span class="tag">No Updates</span><span class="tag">Tinker</span><span class="tag">Infinite Reach</span><span class="tag">Fast Place</span><span class="tag">Angel Placement</span><span class="tag">No Clip</span><span class="tag">Phantom</span></div></div>
+    <div class="box"><h3>Точки расширения</h3>
+      <ul>
+        <li><code>axiomclientapi</code>: <code>CustomTool</code>, <code>ToolRegistryService.register()</code>, <code>ToolService</code>, <code>RegionProvider</code>; подключаются через <code>META-INF/services</code></li>
+        <li>Внутреннее: <code>ToolManager.addTool(Tool)</code>, <code>MainMenuBar.render()</code>, <code>EditorUI</code>, <code>ImGuiHelper</code>, <code>SelectBlockWidget</code>, <code>MaskManager</code></li>
+        <li>Редактор работает, только если <code>AxiomClient.isAxiomActive(SPECTATOR)</code>: одиночная игра или сервер с плагином Axiom</li>
+      </ul></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section id="compare">
+  <div class="sec-head"><span class="sec-num">3</span><h2>Сравнение по областям</h2></div>
+  <p class="prose">Сравнение по командам — в колонке «В Axiom» в разделе 1. Здесь то же самое по областям.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Область</th><th>WorldEdit</th><th>Axiom</th><th>Статус</th></tr></thead>
+    <tbody>
+      <tr><td>Типы выделения</td><td>cuboid, extend, poly, polyextend, ellipsoid, sphere, cyl, convex</td><td>box и произвольный воксельный набор (magic, lasso, freehand)</td><td><span class="pill part">частично</span></td></tr>
+      <tr><td>Правка выделения</td><td>expand/contract по направлению, shift, outset/inset, trim, chunk</td><td>Expand, Shrink, Smooth, Distort, Filter, гизмо</td><td><span class="pill part">частично</span></td></tr>
+      <tr><td>Заливка и замена</td><td>set, replace, walls, faces, overlay, center</td><td>Fill-семейство, Replace, Type и Palette Replace</td><td><span class="pill yes">есть</span></td></tr>
+      <tr><td>Процедурные операции</td><td>naturalize, regen, deform, forest, flora, hollow, smooth, line, curve</td><td>Hollow, Smoothsnow, Autoshade, Distort</td><td><span class="pill part">частично</span></td></tr>
+      <tr><td>Генерация по формуле</td><td>generate, generatebiome, deform, кисть deform</td><td>Script Brush на Lua</td><td><span class="pill no">нет</span></td></tr>
+      <tr><td>Фигуры</td><td>sphere, cyl, cone, pyramid, полые варианты</td><td>Create-меню, Shape</td><td><span class="pill yes">есть</span></td></tr>
+      <tr><td>Фичи и структуры ванилы</td><td>/feature, /structure, forestgen, pumpkins, кисть feature</td><td>—</td><td><span class="pill no">нет</span></td></tr>
+      <tr><td>Буфер обмена</td><td>copy, cut, paste с флагами и маской, rotate по 3 осям, flip, revolve</td><td>Clipboard, Placement с поворотом на любой угол и масштабом</td><td><span class="pill yes">есть</span></td></tr>
+      <tr><td>Схематики</td><td>load, save, list, delete, share; 4 формата</td><td>Import, Export, блюпринты, .litematic</td><td><span class="pill yes">есть</span></td></tr>
+      <tr><td>История</td><td>undo, redo на сервере, в том числе для другого игрока</td><td>своя клиентская история</td><td><span class="pill part">раздельные</span></td></tr>
+      <tr><td>Кисти</td><td>21 тип, apply и paint, маска, материал, размер, дальность, tracemask</td><td>больше и удобнее: Painter, Sculpt, Elevation, Smooth, Stamp и др.</td><td><span class="pill part">частично</span></td></tr>
+      <tr><td>Маски</td><td>строковый язык, выражения, шум, <code>#region</code>, <code>#clipboard</code></td><td>визуальный, строковый и Lua; angle, near, can see sky</td><td><span class="pill part">разные</span></td></tr>
+      <tr><td>Паттерны</td><td>веса, теги, случайные состояния, применение состояния, <code>#clipboard</code></td><td>один активный блок, палитра, шумовые и градиентные заливки</td><td><span class="pill part">частично</span></td></tr>
+      <tr><td>Биомы</td><td>setbiome, replacebiome, biomeinfo, biomelist, кисть biome</td><td>Set Biome, Biome Painter, показ биомов</td><td><span class="pill yes">есть</span></td></tr>
+      <tr><td>Снапшоты и бэкапы</td><td>snap list, use, sel, before, after, restore</td><td>—</td><td><span class="pill no">нет</span></td></tr>
+      <tr><td>Вода, лава, снег, огонь</td><td>drain, fixwater, fixlava, snow, thaw, green, extinguish</td><td>Drain, Waterlog</td><td><span class="pill part">частично</span></td></tr>
+      <tr><td>Сущности</td><td>butcher, remove по типу и радиусу</td><td>ручная правка display-сущностей и маркеров</td><td><span class="pill no">нет</span></td></tr>
+      <tr><td>Чанки</td><td>chunkinfo, listchunks, delchunks</td><td>—</td><td><span class="pill no">нет</span></td></tr>
+      <tr><td>Скрипты</td><td>CraftScripts на JS</td><td>Lua в кисти и масках</td><td><span class="pill part">разные</span></td></tr>
+      <tr><td>Настройки сессии</td><td>limit, timeout, perf и side effects, reorder, gmask, placement, world</td><td>No Updates, глобальные маски</td><td><span class="pill part">частично</span></td></tr>
+      <tr><td>Навигация</td><td>ascend, descend, ceil, thru, jumpto, up, unstuck</td><td>свободная камера, noclip, полёт</td><td><span class="pill part">другая модель</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Чего нет в Axiom и что даёт реальную пользу</h3>
+  <div class="value">
+    <div class="tier"><h3><span class="pill no">высокая</span></h3><ul>
+      <li><code>//generate</code>, <code>//deform</code>, <code>//generatebiome</code> — формы и деформации по формуле с готовыми пресетами (тор, синусоида, арка, купол)</li>
+      <li><code>//naturalize</code>, <code>//overlay</code>, <code>//forest</code>, <code>//flora</code>, <code>/forestgen</code> — быстрый «живой» ландшафт</li>
+      <li><code>/feature</code>, <code>/structure</code>, кисть feature — ванильные фичи и структуры по клику</li>
+      <li><code>//regen</code> — откатить участок к генерации мира, в том числе в буфер обмена (<code>-c</code>)</li>
+      <li>Паттерны с весами и масками WE: <code>30%stone,70%andesite</code>, <code>##logs</code>, <code>^[axis=y]</code>, <code>%50</code>, <code>=expr</code></li>
+      <li><code>//line</code> и <code>//curve</code> с толщиной по точкам convex-выделения</li>
+    </ul></div>
+    <div class="tier"><h3><span class="pill part">средняя</span></h3><ul>
+      <li>Снапшоты: <code>/snap</code> и <code>/restore</code> — восстановить участок из бэкапа</li>
+      <li><code>//revolve</code>, <code>//stack</code> с маской, <code>//move -s</code>, <code>//center</code>, <code>//trim</code>, <code>//chunk</code></li>
+      <li>Выделения ellipsoid, cyl, poly и convex как формы для операций</li>
+      <li><code>/fixwater</code>, <code>/fixlava</code>, <code>/snow</code>, <code>/thaw</code>, <code>/green</code>, <code>/ex</code></li>
+      <li><code>/butcher</code> и <code>/remove</code> — чистка мобов и сущностей</li>
+      <li><code>//perf</code> и side effects, <code>//limit</code>, <code>//timeout</code> — контроль обновлений и лимитов</li>
+      <li>Кисти WE: gravity, butcher, snow, extinguish, heightmap, apply и paint</li>
+    </ul></div>
+    <div class="tier"><h3><span class="pill skip">низкая</span></h3><ul>
+      <li>Навигация (<code>/ascend</code>, <code>/thru</code>): в редакторе Axiom свободная камера</li>
+      <li>Чанки (<code>/delchunks</code>), <code>/registry</code>, <code>/searchitem</code>, <code>//calc</code>, CraftScripts</li>
+      <li>Служебные: <code>/we version</code>, <code>reload</code>, <code>report</code>, <code>trace</code>, <code>cui</code>, <code>//drawsel</code>, <code>//wand</code></li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section id="arch">
+  <div class="sec-head"><span class="sec-num">4</span><h2>Архитектура</h2></div>
+  <pre class="mermaid">
+flowchart LR
+  subgraph AX["Редактор Axiom (клиент)"]
+    MENU["Меню WorldEdit<br/>в MainMenuBar"]
+    WIN["Окна аддона<br/>ImGui в EditorUI"]
+    TOOLS["Кисти WE<br/>как CustomTool"]
+    SEL["Выделение Axiom<br/>Selection"]
+    HIST["История Axiom<br/>Ctrl+Z, History"]
+  end
+  subgraph ADDON["axiom-worldedit-gui"]
+    SCHEMA["Схема команд<br/>we-commands.json"]
+    PAT["Редактор паттернов<br/>и масок"]
+    SYNC["SelectionSync<br/>свой RegionSelector"]
+    BE["WeBackend"]
+    DIR["DirectBackend<br/>одиночная игра"]
+    CMD["CommandBackend<br/>на потом, серверы"]
+    JR["Общий журнал<br/>ChangeSet → HistoryEntry"]
+  end
+  WE[("WorldEdit<br/>встроенный сервер")]
+  MENU --> WIN
+  WIN --> SCHEMA
+  WIN --> PAT
+  WIN --> BE
+  TOOLS --> BE
+  BE --> DIR
+  BE -.-> CMD
+  DIR -- "handleCommand в потоке сервера" --> WE
+  SEL <--> SYNC
+  SYNC -- "точная форма выделения" --> WE
+  WE -- "CUI-события выделения" --> SYNC
+  WE -- "LocalSession.remember" --> JR
+  JR --> HIST
+  PAT -. "PatternFactory, MaskFactory" .-> WE
+  </pre>
+
+  <div class="decision">
+    <h3>4.1. Как GUI вызывает WorldEdit</h3>
+    <div class="opts">
+      <div class="opt-card pick"><h4>Прямой вызов API <span class="badge">основа</span></h4>
+        <p>Одиночная игра. В <code>server.execute()</code> вызывается <code>PlatformCommandManager.handleCommand(new CommandEvent(actor, "//set …"))</code> со своим <code>Actor</code>, который перехватывает вывод.</p>
+        <ul><li>Доступны все {{TOTAL}} команд: аргументы разбирает сам WE</li><li>Структурированные ответы и ошибки без чата</li><li>Доступ к <code>LocalSession</code>: буфер обмена, маска, кисти</li><li>Свой <code>RegionSelector</code> с точной формой выделения Axiom</li><li>Перехват истории WE для общего журнала (4.5)</li></ul></div>
+      <div class="opt-card"><h4>Команды от игрока <span class="badge">на потом</span></h4>
+        <p>Форма собирает строку, и мод отправляет её через <code>connection.sendCommand("/set 30%stone,dirt")</code>.</p>
+        <ul><li>Нужно только для серверов: там WE в другом процессе</li><li>Ответ приходит текстом в чат, выделение передаётся только рамкой, общего журнала нет</li></ul></div>
+      <div class="opt-card"><h4>Своя реализация операций</h4>
+        <p>Переписать логику WE на клиенте и отправлять блоки пакетами Axiom.</p>
+        <ul><li>Огромный объём, расходится с WE при каждом обновлении</li><li>Не рекомендую</li></ul></div>
+    </div>
+    <div class="rec"><p><strong>Решение.</strong> Все вызовы идут через интерфейс <code>WeBackend</code>. Сейчас у него одна реализация, <code>DirectBackend</code>. Если позже понадобятся серверы, рядом появится <code>CommandBackend</code>, а окна и инструменты менять не придётся. Команда выполняется в потоке сервера, результат возвращается в поток клиента через <code>Minecraft.execute()</code>.</p>
+      <pre class="code">interface WeBackend {
+  CompletableFuture&lt;WeResult&gt; run(String command);      // "//set stone" → сообщения, ошибки, число блоков
+  void pushSelection(AxiomSelectionSnapshot sel);        // Axiom → WE
+  CompletableFuture&lt;List&lt;String&gt;&gt; suggest(String partial); // подсказки WE
+  Optional&lt;String&gt; validatePattern(String input);         // ошибка разбора или пусто
+}</pre></div>
+  </div>
+
+  <div class="decision">
+    <h3>4.2. Выделение</h3>
+    <div class="opts">
+      <div class="opt-card pick"><h4>Выделение Axiom главное <span class="badge">рекомендую</span></h4>
+        <ul>
+          <li><b>Axiom → WE.</b> Перед каждой командой в сессию WE ставится свой <code>RegionSelector</code>. Для <code>SelectionBuffer.AABB</code> он отдаёт обычный <code>CuboidRegion</code>, поэтому работают и команды, которым нужен именно кубоид (<code>//line</code>, <code>//stack</code>). Для произвольного набора (magic, lasso) он отдаёт свой <code>Region</code> по вокселям Axiom с точной формой. Если команде нужен кубоид, а выделение произвольное, она получает рамку с предупреждением.</li>
+          <li><b>WE → Axiom.</b> Обработчик <code>CUIPacketHandler.instance().registerClientboundHandler(...)</code> из протокола, вложенного в WE. События <code>s</code>, <code>p</code>, <code>mm</code>, <code>e</code>, <code>cyl</code>, <code>poly</code> собирают форму. Cuboid превращается в <code>Selection.addAABB</code>, остальные формы растеризуются в <code>PositionSet</code> с лимитом объёма.</li>
+          <li>Защита от петли: у каждого изменения есть источник, и эхо своих же изменений игнорируется.</li>
+          <li>Если WorldEditCUI нет, мод сам отправляет рукопожатие <code>CUIPacket("v", "4")</code>, чтобы сервер начал слать события.</li>
+        </ul></div>
+      <div class="opt-card"><h4>Интеграция с WorldEditCUI</h4>
+        <ul><li>Рисует настоящие формы WE: полигоны, эллипсоиды, сетку</li><li>Но это второй визуальный слой поверх Axiom и чужой API без контракта (<code>CUISelectionProvider</code>)</li><li>Сам протокол доступен и без WorldEditCUI</li></ul></div>
+    </div>
+    <div class="rec"><p><strong>Рекомендация.</strong> Согласен с твоим выбором: выделение Axiom, его HUD и отрисовка. WorldEditCUI не нужен как зависимость. Если он установлен, лучше скрывать его рамку, пока открыт редактор Axiom, чтобы не было двух рамок. Типы WE, которых нет в Axiom (poly, ellipsoid, cyl, convex), задаются в окне «Выделение WE» полями и кликами. После команды Axiom показывает их как воксельное выделение.</p></div>
+  </div>
+
+  <div class="decision">
+    <h3>4.3. Как встроить UI</h3>
+    <div class="opts">
+      <div class="opt-card pick"><h4>Меню и окна миксинами</h4>
+        <ul>
+          <li><code>@Inject</code> в <code>MainMenuBar.render()</code> перед вызовом <code>ImGui.endMainMenuBar()</code> (<code>remap = false</code>): верхнее меню «WorldEdit» с подменю по группам</li>
+          <li><code>@Inject</code> в цикл <code>EditorUI</code> после <code>ImageReferenceWindows.render()</code>: свой менеджер окон на ImGui Axiom (<code>imgui.moulberry92</code>) с докингом и сохранением открытых окон в своём конфиге</li>
+          <li>Виджеты Axiom берутся из <code>ImGuiHelper.blockStateButton</code> и <code>SelectBlockWidget</code></li>
+        </ul></div>
+      <div class="opt-card pick"><h4>Кисти через axiomclientapi</h4>
+        <ul>
+          <li>В редакторе Axiom игрок в режиме спектатора, поэтому кисти WE, привязанные к предмету, не срабатывают</li>
+          <li>Каждая кисть WE становится <code>CustomTool</code> через <code>ToolRegistryService</code>, подключённый в <code>META-INF/services</code>: это публичный API, и он стабильнее внутренностей</li>
+          <li>Клик даёт точку из <code>ToolService.raycastBlock()</code>, и кисть выполняется через бэкенд</li>
+          <li>Если API не хватит для превью и опций, используется <code>ToolManager.addTool(Tool)</code></li>
+        </ul></div>
+    </div>
+    <div class="rec"><p><strong>Рекомендация.</strong> Сделать оба варианта. Меню и окна — для операций над выделением, кисти — для работы кликом. Окна:</p>
+      <ul>
+        <li><b>Командная палитра</b>: поиск по всем {{TOTAL}} командам с формой из схемы</li>
+        <li><b>Регион</b>, <b>Генерация</b>, <b>Выделение WE</b>, <b>Буфер и схематики</b>, <b>Биомы</b>, <b>Снапшоты</b></li>
+        <li><b>Сессия</b>: gmask, limit, timeout, perf</li>
+        <li><b>Консоль WE</b>: ответы и ошибки, кнопки WE Undo и Redo</li>
+      </ul>
+      <p>Формы строятся из схемы автоматически: Pattern и Mask получают редактор паттернов, числа — поля со слайдером, BlockVector3 и направления — выбор направления (me, up, north…), enum — выпадающий список, флаги — чекбоксы.</p>
+      <p>Кисть строится как <code>Brush</code> WE и применяется к точке клика через <code>brush.build(editSession, position, pattern, size)</code>. Каждый мазок становится шагом общего журнала.</p></div>
+  </div>
+
+  <div class="decision">
+    <h3>4.4. Паттерны и маски в UI</h3>
+    <div class="opts">
+      <div class="opt-card pick"><h4>Редактор паттерна</h4>
+        <ul>
+          <li>Источник истины — строка WE, а визуальный список её собирает и разбирает</li>
+          <li>Строка списка: кнопка блока из <code>blockStateButton</code>, вес в процентах, модификатор (<code>*</code> случайное состояние, <code>^</code> применить)</li>
+          <li>Быстрые вставки: активный блок и палитра Axiom, <code>##тег</code>, <code>#clipboard@[x,y,z]</code></li>
+          <li>Полоса весов показывает доли блоков</li>
+        </ul></div>
+      <div class="opt-card pick"><h4>Редактор маски</h4>
+        <ul>
+          <li>Чипы, которые соединяются по И: блоки, <code>!</code>, <code>#existing</code>, <code>#solid</code>, <code>#surface</code>, <code>#region</code>, <code>$биом</code>, <code>%шум</code>, <code>&gt;</code>, <code>&lt;</code>, <code>~</code>, <code>=выражение</code></li>
+          <li>Кнопка «Взять из Axiom Tool Masks»: перевод через <code>CmdStringConverter</code>. block, above, below, adjacent, biome, coord и НЕ переводятся; angle, near, can see sky, Lua и общее ИЛИ — нет, они подсвечиваются</li>
+          <li>«Сделать глобальной» отправляет <code>//gmask</code></li>
+        </ul></div>
+      <div class="opt-card"><h4>Проверка и подсказки</h4>
+        <ul>
+          <li>Разбор через <code>WorldEdit.getPatternFactory()</code> и <code>getMaskFactory()</code> на каждое изменение поля, с точной ошибкой</li>
+          <li>Подсказки из <code>getSuggestions()</code> тех же фабрик: блоки, теги, биомы</li>
+          <li>Выражения: подсветка переменных и функций, пресеты для <code>//generate</code></li>
+        </ul></div>
+    </div>
+  </div>
+
+  <div class="decision" id="journal">
+    <h3>4.5. Общий журнал отмены</h3>
+    <p class="prose">Без него у Axiom и WE две истории, и они не знают друг о друге. Запись истории Axiom (<code>HistoryEntry</code>) хранит снимки блоков «до» и «после», а Ctrl+Z просто записывает в мир снимок «до». Пример: Fill камнем в Axiom, затем <code>//overlay grass</code> в WE поверх, затем Ctrl+Z. Axiom вернёт снимок «до Fill» и сотрёт траву WE внутри области. После этого <code>//undo</code> WE вернёт камень пятнами.</p>
+    <div class="opts">
+      <div class="opt-card pick"><h4>Как устроено <span class="badge">решено</span></h4>
+        <ul>
+          <li>Миксин в <code>LocalSession.remember(EditSession)</code>: когда WE хочет запомнить операцию, аддон забирает её <code>ChangeSet</code></li>
+          <li>Каждое изменение <code>BlockChange(position, previous, current)</code> раскладывается в два <code>BlockBuffer</code> Axiom: «до» и «после». Блоки с данными идут как <code>CompressedBlockEntity</code>, биомы — в <code>BiomeBuffer</code></li>
+          <li>Запись «WE: //overlay (1 234 блока)» добавляется в <code>Dispatcher.history</code> через миксин-аксессор. Публичный <code>Dispatcher.push()</code> не подходит: он заново применяет блоки «после»</li>
+          <li>В историю WE такая операция не попадает, поэтому второго журнала нет</li>
+          <li>Так перехватываются и команды, набранные в чате, и мазки кистей WE</li>
+        </ul></div>
+      <div class="opt-card"><h4>Что остаётся в <code>//undo</code> WE</h4>
+        <ul>
+          <li>Операции, в <code>ChangeSet</code> которых есть сущности (<code>EntityCreate</code>, <code>EntityRemove</code>): <code>/butcher</code>, <code>/remove</code>, <code>//paste -e</code>, <code>//copy -e</code> с переносом</li>
+          <li>Их запись в Axiom не делается целиком, иначе отмена вернула бы блоки, но не мобов</li>
+          <li>В консоли аддона и в окне такая операция помечается «отмена только через WE Undo»</li>
+        </ul></div>
+    </div>
+    <div class="rec"><p><strong>Что проверить на этапе 1.</strong> Порядок записи, когда операция WE идёт сразу после незавершённой правки Axiom (<code>applyPendingHistory</code>). Сохранение журнала на диск через <code>HistoryIO</code> для больших операций. Память: <code>ChangeSet</code> WE и запись Axiom не должны жить одновременно дольше, чем нужно для переноса.</p></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section id="phases">
+  <div class="sec-head"><span class="sec-num">5</span><h2>План по этапам</h2></div>
+  <div class="phases">
+    <div class="phase"><div class="pn">Этап 0<span>каркас</span></div><div class="pb">
+      <ul><li>Папка <code>axiom-worldedit-gui/</code>, <code>build.sh</code> по образцу <code>axiom-brush-offset</code>: classpath плюс jar WorldEdit и fabric-api</li>
+      <li><code>fabric.mod.json</code> с зависимостями <code>axiom</code> и <code>worldedit</code>; миксины с <code>remap = false</code>; <code>LICENSE</code> GPL-3.0 и README</li>
+      <li>Пустое меню «WorldEdit» и одно окно в редакторе; генератор <code>we-commands.json</code> из jar</li></ul>
+      <p class="done">Готово, когда меню появляется в Axiom, а окно открывается и запоминает положение.</p></div></div>
+    <div class="phase"><div class="pn">Этап 1<span>MVP</span></div><div class="pb">
+      <ul><li><code>DirectBackend</code>: <code>handleCommand</code> в потоке сервера и <code>Actor</code>, который собирает ответы и ошибки в консоль аддона</li>
+      <li>Общий журнал (4.5): операции WE в истории Axiom, Ctrl+Z и окно History</li>
+      <li>Свой <code>RegionSelector</code>: точная форма выделения Axiom для box и произвольного набора</li>
+      <li>Окна с вручную сделанными формами для самых полезных команд, которых нет в Axiom: <code>//generate</code>, <code>//deform</code>, <code>//naturalize</code>, <code>//overlay</code>, <code>//center</code>, <code>//line</code>, <code>//regen</code>, <code>//forest</code>, <code>//flora</code>, <code>/forestgen</code>, <code>/feature</code>, <code>/structure</code>, <code>//revolve</code>, <code>//trim</code>, <code>/fixwater</code>, <code>/snow</code>, <code>/butcher</code>, <code>//gmask</code>, <code>//perf</code></li>
+      <li>Поле паттерна: строка, кнопка «активный блок» и проверка через <code>PatternFactory</code> при вводе</li></ul>
+      <p class="done">Готово, когда в одиночном мире команды выполняются по выделению Axiom любой формы и отменяются Ctrl+Z.</p></div></div>
+    <div class="phase"><div class="pn">Этап 2<span>все команды</span></div><div class="pb">
+      <ul><li>Командная палитра: поиск и автоматические формы для всех {{TOTAL}} команд</li>
+      <li>WE → Axiom через CUI-события: cuboid, а также растеризация poly, ellipsoid, cyl и convex; окно «Выделение WE»</li>
+      <li>Визуальные редакторы паттернов и масок, подсказки из фабрик WE, перевод масок Axiom</li>
+      <li>Журнал: блоки с данными и биомы</li></ul></div></div>
+    <div class="phase"><div class="pn">Этап 3<span>кисти</span></div><div class="pb">
+      <ul><li>Кисти WE как <code>CustomTool</code>: sphere, cylinder, smooth, gravity, deform, set, raise, lower, snow, biome, forest, feature, heightmap, butcher, extinguish</li>
+      <li>Превью формы кисти, настройки в Tool Options, маска и tracemask</li>
+      <li>Каждый мазок — шаг общего журнала</li></ul></div></div>
+    <div class="phase"><div class="pn">Этап 4<span>буфер обмена</span></div><div class="pb">
+      <ul><li>Синхронизация буфера обмена Axiom ↔ WE (<code>ClipboardHolder</code> ↔ <code>ClipboardObject</code>): копия в WE сразу доступна для Placement в Axiom и обратно</li>
+      <li>Браузер схематик WE рядом с Blueprint Browser</li>
+      <li>Живая проверка выражений</li></ul></div></div>
+    <div class="phase"><div class="pn">Этап 5<span>полный перенос</span></div><div class="pb">
+      <ul><li>Снапшоты и restore</li>
+      <li>CraftScripts: запуск с аргументами и список <code>.js</code>-файлов</li>
+      <li>Настройки сессии: side effects по отдельности, limit, timeout, reorder, placement, world</li>
+      <li>Чанки, навигация, сущности, биомы; локализация ru и en; горячие клавиши в Keybinds Axiom</li>
+      <li>Если понадобятся серверы: <code>CommandBackend</code> за тем же интерфейсом</li></ul></div></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section id="risks">
+  <div class="sec-head"><span class="sec-num">6</span><h2>Риски</h2></div>
+  <div class="tbl risks"><table>
+    <thead><tr><th>Риск</th><th>Вес</th><th>Что делаем</th></tr></thead>
+    <tbody>
+      <tr><td>Общий журнал опирается на внутреннее поле <code>Dispatcher.history</code> и формат <code>HistoryEntry</code> Axiom, которые могут поменяться в обновлении</td><td><span class="sev h">высокий</span></td><td>Аксессор в одном месте и проверка при запуске; если поле не найдено, журнал отключается, операции идут в <code>//undo</code> WE, а в консоли появляется предупреждение</td></tr>
+      <tr><td>Внутренний API Axiom (<code>MainMenuBar</code>, <code>EditorUI</code>, <code>Selection</code>) может меняться в обновлениях</td><td><span class="sev m">средний</span></td><td>Все обращения к Axiom в одном слое адаптера; где можно — axiomclientapi</td></tr>
+      <tr><td>Операции с сущностями не отменяются через Ctrl+Z</td><td><span class="sev m">средний</span></td><td>Остаются в <code>//undo</code> WE и помечаются в консоли и окне</td></tr>
+      <tr><td>Большие операции (миллионы блоков) держат в памяти и <code>ChangeSet</code> WE, и запись Axiom</td><td><span class="sev m">средний</span></td><td>Перенос по секциям с освобождением <code>ChangeSet</code>; порог, выше которого операция остаётся в истории WE</td></tr>
+      <tr><td>Свой <code>Region</code> для произвольного выделения: часть команд проверяет тип региона (<code>instanceof CuboidRegion</code>)</td><td><span class="sev m">средний</span></td><td>Таким командам — рамка с предупреждением; список команд проверить на этапе 1</td></tr>
+      <tr><td>Только одиночная игра: на серверах аддон не работает</td><td><span class="sev l">принято</span></td><td>Интерфейс <code>WeBackend</code> оставляет место для <code>CommandBackend</code></td></tr>
+      <tr><td>Растеризация больших эллипсоидов и полигонов из CUI тормозит</td><td><span class="sev m">средний</span></td><td>Лимит объёма, фоновый поток, при превышении — только рамка</td></tr>
+      <tr><td>В спектаторе кисти WE на предметах не работают</td><td><span class="sev l">учтён</span></td><td>Кисти делаются инструментами Axiom (этап 3)</td></tr>
+      <tr><td>Две рамки, если установлен WorldEditCUI</td><td><span class="sev l">низкий</span></td><td>Скрывать рамку CUI, пока открыт редактор Axiom</td></tr>
+      <tr><td>Лицензии: мод под GPL-3.0 из-за API WE, а Axiom проприетарный</td><td><span class="sev l">для публикации</span></td><td>Не включать код и классы Axiom в jar, только миксины и вызовы во время работы; перед релизом проверить условия Axiom для аддонов</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 7 -->
+<section id="questions">
+  <div class="sec-head"><span class="sec-num">7</span><h2>Вопросы перед стартом</h2></div>
+  <p class="prose">Решено: только одиночная игра, общий журнал Axiom, open source под GPL-3.0. Произвольное выделение передаётся точной формой. Остались вопросы:</p>
+  <ol class="qs">
+    <li><b>WorldEditCUI: скрывать его рамку в редакторе Axiom, оставить или ты его удалишь?</b><span class="def">По умолчанию: скрывать, пока открыт редактор.</span></li>
+    <li><b>Состав MVP: подходит список команд из этапа 1 или чего-то не хватает?</b><span class="def">По умолчанию: список из этапа 1.</span></li>
+    <li><b>Язык интерфейса: русский, английский или оба?</b><span class="def">По умолчанию: оба, через lang-файлы.</span></li>
+    <li><b>Писать в общий журнал и команды WE, набранные в чате, или только операции из окон аддона?</b><span class="def">По умолчанию: все операции WE, чтобы Ctrl+Z работал одинаково.</span></li>
+  </ol>
+</section>
+
+<footer>
+  <span>Данные: <span class="mono">worldedit-mod-7.4.6.jar</span>, <span class="mono">Axiom-6.1.5-for-MC26.3.jar</span>, <span class="mono">WorldEditCUI-26.3+01.jar</span> из сборки PWGood__26.3; декомпиляция Vineflower 1.10.1.</span>
+  <span>Полный машинный список команд: <span class="mono">axiom-worldedit-gui/research/worldedit-7.4.6-commands.json</span>.</span>
+</footer>
+</div>

@@ -1,0 +1,9 @@
+# Build output of build.sh
+/build/
+
+# Editors and OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

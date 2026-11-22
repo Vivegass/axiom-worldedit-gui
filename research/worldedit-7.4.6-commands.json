@@ -1,0 +1,6059 @@
+[
+ {
+  "file": "ApplyBrushCommands",
+  "name": "forest",
+  "aliases": [],
+  "desc": "Plant trees",
+  "perms": [
+   "worldedit.brush.item"
+  ],
+  "method": "forest",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The type of tree to plant",
+    "default": null,
+    "type": "TreeType",
+    "param": "type",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ApplyBrushCommands",
+  "name": "item",
+  "aliases": [],
+  "desc": "Use an item",
+  "perms": [
+   "worldedit.brush.item"
+  ],
+  "method": "item",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The type of item to use",
+    "default": null,
+    "type": "BaseItem",
+    "param": "item",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The direction in which the item will be applied",
+    "default": [
+     "up"
+    ],
+    "type": "com.sk89q.worldedit.util.Direction",
+    "param": "direction",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ApplyBrushCommands",
+  "name": "set",
+  "aliases": [],
+  "desc": "Place a block",
+  "perms": [],
+  "method": "set",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to use",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BiomeCommands",
+  "name": "biomelist",
+  "aliases": [
+   "biomels"
+  ],
+  "desc": "Gets all biomes available.",
+  "perms": [
+   "worldedit.biome.list"
+  ],
+  "method": "biomeList",
+  "args": [
+   {
+    "kind": "ArgFlag",
+    "flag": "p",
+    "argname": null,
+    "desc": "Page number.",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "page",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BiomeCommands",
+  "name": "biomeinfo",
+  "aliases": [],
+  "desc": "Get the biome of the targeted block.",
+  "perms": [
+   "worldedit.biome.info"
+  ],
+  "method": "biomeInfo",
+  "args": [
+   {
+    "kind": "Switch",
+    "flag": "t",
+    "argname": null,
+    "desc": "Use the block you are looking at.",
+    "default": null,
+    "type": "boolean",
+    "param": "useLineOfSight",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "p",
+    "argname": null,
+    "desc": "Use the block you are currently in.",
+    "default": null,
+    "type": "boolean",
+    "param": "usePosition",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BiomeCommands",
+  "name": "/setbiome",
+  "aliases": [],
+  "desc": "Sets the biome of your current block or region.",
+  "perms": [
+   "worldedit.biome.set"
+  ],
+  "method": "setBiome",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Biome type.",
+    "default": null,
+    "type": "BiomeType",
+    "param": "target",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "p",
+    "argname": null,
+    "desc": "Use your current position",
+    "default": null,
+    "type": "boolean",
+    "param": "atPosition",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BiomeCommands",
+  "name": "/replacebiome",
+  "aliases": [],
+  "desc": "Replaces the biome of your current block or region.",
+  "perms": [
+   "worldedit.biome.set"
+  ],
+  "method": "replaceBiome",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The mask representing where to replace biomes",
+    "default": null,
+    "type": "Mask",
+    "param": "from",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Biome type to set",
+    "default": null,
+    "type": "BiomeType",
+    "param": "target",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "p",
+    "argname": null,
+    "desc": "Use your current position",
+    "default": null,
+    "type": "boolean",
+    "param": "atPosition",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "none",
+  "aliases": [
+   "unbind"
+  ],
+  "desc": "Unbind a bound brush from your current item",
+  "perms": [
+   "worldedit.brush.sphere"
+  ],
+  "method": "none",
+  "args": []
+ },
+ {
+  "file": "BrushCommands",
+  "name": "sphere",
+  "aliases": [
+   "s"
+  ],
+  "desc": "Choose the sphere brush",
+  "perms": [
+   "worldedit.brush.sphere"
+  ],
+  "method": "sphereBrush",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to set",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius of the sphere",
+    "default": [
+     "2"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "h",
+    "argname": null,
+    "desc": "Create hollow spheres instead",
+    "default": null,
+    "type": "boolean",
+    "param": "hollow",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "cylinder",
+  "aliases": [
+   "cyl",
+   "c"
+  ],
+  "desc": "Choose the cylinder brush",
+  "perms": [
+   "worldedit.brush.cylinder"
+  ],
+  "method": "cylinderBrush",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to set",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius of the cylinder",
+    "default": [
+     "2"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The height of the cylinder",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "height",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "h",
+    "argname": null,
+    "desc": "Create hollow cylinders instead",
+    "default": null,
+    "type": "boolean",
+    "param": "hollow",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "splatter",
+  "aliases": [
+   "splat"
+  ],
+  "desc": "Choose the splatter brush",
+  "perms": [
+   "worldedit.brush.splatter"
+  ],
+  "method": "splatterBrush",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to set",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius of the splatter",
+    "default": [
+     "2"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The decay of the splatter between 0 and 10",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "decay",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "clipboard",
+  "aliases": [
+   "copy"
+  ],
+  "desc": "Choose the clipboard brush",
+  "perms": [
+   "worldedit.brush.clipboard"
+  ],
+  "method": "clipboardBrush",
+  "args": [
+   {
+    "kind": "Switch",
+    "flag": "a",
+    "argname": null,
+    "desc": "Don't paste air from the clipboard",
+    "default": null,
+    "type": "boolean",
+    "param": "ignoreAir",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "v",
+    "argname": null,
+    "desc": "Include structure void blocks",
+    "default": null,
+    "type": "boolean",
+    "param": "pasteStructureVoid",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "o",
+    "argname": null,
+    "desc": "Paste starting at the target location, instead of centering on it",
+    "default": null,
+    "type": "boolean",
+    "param": "usingOrigin",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "e",
+    "argname": null,
+    "desc": "Paste entities if available",
+    "default": null,
+    "type": "boolean",
+    "param": "pasteEntities",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "b",
+    "argname": null,
+    "desc": "Paste biomes if available",
+    "default": null,
+    "type": "boolean",
+    "param": "pasteBiomes",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "m",
+    "argname": null,
+    "desc": "Skip blocks matching this mask in the clipboard",
+    "default": null,
+    "type": "Mask",
+    "param": "sourceMask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "smooth",
+  "aliases": [],
+  "desc": "Choose the terrain softener brush",
+  "perms": [
+   "worldedit.brush.smooth"
+  ],
+  "method": "smoothBrush",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius to sample for softening",
+    "default": [
+     "2"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The number of iterations to perform",
+    "default": [
+     "4"
+    ],
+    "type": "int",
+    "param": "iterations",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The mask of blocks to use for the heightmap",
+    "default": [
+     ""
+    ],
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "snowsmooth",
+  "aliases": [],
+  "desc": "Choose the snow terrain softener brush",
+  "perms": [
+   "worldedit.brush.snowsmooth"
+  ],
+  "method": "snowSmoothBrush",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius to sample for softening",
+    "default": [
+     "2"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The number of iterations to perform",
+    "default": [
+     "4"
+    ],
+    "type": "int",
+    "param": "iterations",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "l",
+    "argname": null,
+    "desc": "The number of snow blocks under snow",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "snowBlockCount",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "m",
+    "argname": null,
+    "desc": "The mask of blocks to use for the heightmap",
+    "default": null,
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "extinguish",
+  "aliases": [
+   "ex"
+  ],
+  "desc": "Shortcut fire extinguisher brush",
+  "perms": [
+   "worldedit.brush.ex"
+  ],
+  "method": "extinguishBrush",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius to extinguish",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "gravity",
+  "aliases": [
+   "grav"
+  ],
+  "desc": "Gravity brush, simulates the effect of gravity",
+  "perms": [
+   "worldedit.brush.gravity"
+  ],
+  "method": "gravityBrush",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius to apply gravity in",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "h",
+    "argname": null,
+    "desc": "Affect blocks between the given height, upwards and downwards, rather than the target location Y + radius",
+    "default": [
+     "default-vertical-height"
+    ],
+    "type": "Integer",
+    "param": "height",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "butcher",
+  "aliases": [
+   "kill"
+  ],
+  "desc": "Butcher brush, kills mobs within a radius",
+  "perms": [
+   "worldedit.brush.butcher"
+  ],
+  "method": "butcherBrush",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Radius to kill mobs in",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "p",
+    "argname": null,
+    "desc": "Also kill pets",
+    "default": null,
+    "type": "boolean",
+    "param": "killPets",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "n",
+    "argname": null,
+    "desc": "Also kill NPCs",
+    "default": null,
+    "type": "boolean",
+    "param": "killNpcs",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "g",
+    "argname": null,
+    "desc": "Also kill golems",
+    "default": null,
+    "type": "boolean",
+    "param": "killGolems",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "a",
+    "argname": null,
+    "desc": "Also kill animals",
+    "default": null,
+    "type": "boolean",
+    "param": "killAnimals",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "b",
+    "argname": null,
+    "desc": "Also kill ambient mobs",
+    "default": null,
+    "type": "boolean",
+    "param": "killAmbient",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "t",
+    "argname": null,
+    "desc": "Also kill mobs with name tags",
+    "default": null,
+    "type": "boolean",
+    "param": "killWithName",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "f",
+    "argname": null,
+    "desc": "Also kill all friendly mobs (Applies the flags `-abgnpt`)",
+    "default": null,
+    "type": "boolean",
+    "param": "killFriendly",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "r",
+    "argname": null,
+    "desc": "Also destroy armor stands",
+    "default": null,
+    "type": "boolean",
+    "param": "killArmorStands",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "w",
+    "argname": null,
+    "desc": "Also kill water mobs",
+    "default": null,
+    "type": "boolean",
+    "param": "killWater",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "heightmap",
+  "aliases": [],
+  "desc": "Heightmap brush, raises or lowers terrain using an image heightmap",
+  "perms": [
+   "worldedit.brush.heightmap"
+  ],
+  "method": "heightmapBrush",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The name of the image",
+    "default": null,
+    "type": "String",
+    "param": "imageName",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The intensity of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "intensity",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "e",
+    "argname": null,
+    "desc": "Erase blocks instead of filling them",
+    "default": null,
+    "type": "boolean",
+    "param": "erase",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "f",
+    "argname": null,
+    "desc": "Don't change blocks above the selected height",
+    "default": null,
+    "type": "boolean",
+    "param": "flatten",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "r",
+    "argname": null,
+    "desc": "Randomizes the brush's height slightly.",
+    "default": null,
+    "type": "boolean",
+    "param": "randomize",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "deform",
+  "aliases": [],
+  "desc": "Deform brush, applies an expression to an area",
+  "perms": [
+   "worldedit.brush.deform"
+  ],
+  "method": "deform",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The shape of the region",
+    "default": null,
+    "type": "RegionFactory",
+    "param": "shape",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Expression to apply",
+    "default": [
+     "y-=0.2"
+    ],
+    "type": "String",
+    "param": "expression",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "r",
+    "argname": null,
+    "desc": "Use the game's coordinate origin",
+    "default": null,
+    "type": "boolean",
+    "param": "useRawCoords",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "o",
+    "argname": null,
+    "desc": "Use the placement position as the origin",
+    "default": null,
+    "type": "boolean",
+    "param": "usePlacement",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "set",
+  "aliases": [],
+  "desc": "Set brush, sets all blocks in the area",
+  "perms": [
+   "worldedit.brush.set"
+  ],
+  "method": "set",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The shape of the region",
+    "default": null,
+    "type": "RegionFactory",
+    "param": "shape",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to set",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "forest",
+  "aliases": [],
+  "desc": "Forest brush, creates a forest in the area",
+  "perms": [
+   "worldedit.brush.forest"
+  ],
+  "method": "forest",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The shape of the region",
+    "default": null,
+    "type": "RegionFactory",
+    "param": "shape",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The density of the brush",
+    "default": [
+     "20"
+    ],
+    "type": "double",
+    "param": "density",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The type of tree to use",
+    "default": null,
+    "type": "TreeType",
+    "param": "type",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "feature",
+  "aliases": [],
+  "desc": "Feature brush, paints Minecraft generation features",
+  "perms": [
+   "worldedit.brush.feature"
+  ],
+  "method": "feature",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The shape of the region",
+    "default": null,
+    "type": "RegionFactory",
+    "param": "shape",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The density of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "density",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The type of feature to use",
+    "default": null,
+    "type": "ConfiguredFeatureType",
+    "param": "type",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "raise",
+  "aliases": [],
+  "desc": "Raise brush, raise all blocks by one",
+  "perms": [
+   "worldedit.brush.raise"
+  ],
+  "method": "raise",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The shape of the region",
+    "default": null,
+    "type": "RegionFactory",
+    "param": "shape",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "lower",
+  "aliases": [],
+  "desc": "Lower brush, lower all blocks by one",
+  "perms": [
+   "worldedit.brush.lower"
+  ],
+  "method": "lower",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The shape of the region",
+    "default": null,
+    "type": "RegionFactory",
+    "param": "shape",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "snow",
+  "aliases": [],
+  "desc": "Snow brush, sets snow in the area",
+  "perms": [
+   "worldedit.brush.snow"
+  ],
+  "method": "snow",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The shape of the region",
+    "default": null,
+    "type": "RegionFactory",
+    "param": "shape",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "s",
+    "argname": null,
+    "desc": "Whether to stack snow",
+    "default": null,
+    "type": "boolean",
+    "param": "stack",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "biome",
+  "aliases": [],
+  "desc": "Biome brush, sets biomes in the area",
+  "perms": [
+   "worldedit.brush.biome"
+  ],
+  "method": "biome",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The shape of the region",
+    "default": null,
+    "type": "RegionFactory",
+    "param": "shape",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The biome type",
+    "default": null,
+    "type": "BiomeType",
+    "param": "biomeType",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "c",
+    "argname": null,
+    "desc": "Whether to set the full column",
+    "default": null,
+    "type": "boolean",
+    "param": "column",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "morph",
+  "aliases": [],
+  "desc": "Morph brush, morphs blocks in the area",
+  "perms": [
+   "worldedit.brush.morph"
+  ],
+  "method": "morph",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "brushSize",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Minimum number of faces for erosion",
+    "default": [
+     "3"
+    ],
+    "type": "int",
+    "param": "minErodeFaces",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Erode iterations",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "numErodeIterations",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Minimum number of faces for dilation",
+    "default": [
+     "3"
+    ],
+    "type": "int",
+    "param": "minDilateFaces",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Dilate iterations",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "numDilateIterations",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "erode",
+  "aliases": [],
+  "desc": "Erode preset for morph brush, erodes blocks in the area",
+  "perms": [
+   "worldedit.brush.morph"
+  ],
+  "method": "erode",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "brushSize",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "BrushCommands",
+  "name": "dilate",
+  "aliases": [],
+  "desc": "Dilate preset for morph brush, dilates blocks in the area",
+  "perms": [
+   "worldedit.brush.morph"
+  ],
+  "method": "dilate",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the brush",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "brushSize",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ChunkCommands",
+  "name": "chunkinfo",
+  "aliases": [],
+  "desc": "Get information about the chunk you're inside",
+  "perms": [
+   "worldedit.chunkinfo"
+  ],
+  "method": "chunkInfo",
+  "args": []
+ },
+ {
+  "file": "ChunkCommands",
+  "name": "listchunks",
+  "aliases": [],
+  "desc": "List chunks that your selection includes",
+  "perms": [
+   "worldedit.listchunks"
+  ],
+  "method": "listChunks",
+  "args": [
+   {
+    "kind": "ArgFlag",
+    "flag": "p",
+    "argname": null,
+    "desc": "Page number.",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "page",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ChunkCommands",
+  "name": "delchunks",
+  "aliases": [],
+  "desc": "Delete chunks that your selection includes",
+  "perms": [
+   "worldedit.delchunks"
+  ],
+  "method": "deleteChunks",
+  "args": [
+   {
+    "kind": "ArgFlag",
+    "flag": "o",
+    "argname": null,
+    "desc": "Only delete chunks older than the specified time.",
+    "default": null,
+    "type": "ZonedDateTime",
+    "param": "beforeTime",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ClipboardCommands",
+  "name": "/copy",
+  "aliases": [],
+  "desc": "Copy the selection to the clipboard",
+  "perms": [
+   "worldedit.clipboard.copy"
+  ],
+  "method": "copy",
+  "args": [
+   {
+    "kind": "Switch",
+    "flag": "e",
+    "argname": null,
+    "desc": "Also copy entities",
+    "default": null,
+    "type": "boolean",
+    "param": "copyEntities",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "b",
+    "argname": null,
+    "desc": "Also copy biomes",
+    "default": null,
+    "type": "boolean",
+    "param": "copyBiomes",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "m",
+    "argname": null,
+    "desc": "Set the include mask, non-matching blocks become air",
+    "default": null,
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ClipboardCommands",
+  "name": "/cut",
+  "aliases": [],
+  "desc": "Cut the selection to the clipboard",
+  "perms": [
+   "worldedit.clipboard.cut"
+  ],
+  "method": "cut",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Pattern to leave in place of the selection",
+    "default": [
+     "air"
+    ],
+    "type": "Pattern",
+    "param": "leavePattern",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "e",
+    "argname": null,
+    "desc": "Also cut entities",
+    "default": null,
+    "type": "boolean",
+    "param": "copyEntities",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "b",
+    "argname": null,
+    "desc": "Also copy biomes, source biomes are unaffected",
+    "default": null,
+    "type": "boolean",
+    "param": "copyBiomes",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "m",
+    "argname": null,
+    "desc": "Set the exclude mask, non-matching blocks become air",
+    "default": null,
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ClipboardCommands",
+  "name": "/paste",
+  "aliases": [],
+  "desc": "Paste the clipboard's contents",
+  "perms": [
+   "worldedit.clipboard.paste"
+  ],
+  "method": "paste",
+  "args": [
+   {
+    "kind": "Switch",
+    "flag": "a",
+    "argname": null,
+    "desc": "Skip air blocks",
+    "default": null,
+    "type": "boolean",
+    "param": "ignoreAirBlocks",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "v",
+    "argname": null,
+    "desc": "Include structure void blocks",
+    "default": null,
+    "type": "boolean",
+    "param": "pasteStructureVoid",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "o",
+    "argname": null,
+    "desc": "Paste at the original position",
+    "default": null,
+    "type": "boolean",
+    "param": "atOrigin",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "s",
+    "argname": null,
+    "desc": "Select the region after pasting",
+    "default": null,
+    "type": "boolean",
+    "param": "selectPasted",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "n",
+    "argname": null,
+    "desc": "No paste, select only. (Implies -s)",
+    "default": null,
+    "type": "boolean",
+    "param": "onlySelect",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "e",
+    "argname": null,
+    "desc": "Paste entities if available",
+    "default": null,
+    "type": "boolean",
+    "param": "pasteEntities",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "b",
+    "argname": null,
+    "desc": "Paste biomes if available",
+    "default": null,
+    "type": "boolean",
+    "param": "pasteBiomes",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "m",
+    "argname": null,
+    "desc": "Only paste blocks matching this mask",
+    "default": null,
+    "type": "Mask",
+    "param": "sourceMask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ClipboardCommands",
+  "name": "/rotate",
+  "aliases": [],
+  "desc": "Rotate the contents of the clipboard",
+  "perms": [
+   "worldedit.clipboard.rotate"
+  ],
+  "method": "rotate",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Amount to rotate on the y-axis",
+    "default": null,
+    "type": "double",
+    "param": "rotateY",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Amount to rotate on the x-axis",
+    "default": [
+     "0"
+    ],
+    "type": "double",
+    "param": "rotateX",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Amount to rotate on the z-axis",
+    "default": [
+     "0"
+    ],
+    "type": "double",
+    "param": "rotateZ",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ClipboardCommands",
+  "name": "/flip",
+  "aliases": [
+   "/mirror"
+  ],
+  "desc": "Flip the contents of the clipboard across the origin",
+  "perms": [
+   "worldedit.clipboard.flip"
+  ],
+  "method": "flip",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The direction to flip, defaults to look direction.",
+    "default": [
+     "me"
+    ],
+    "type": "BlockVector3",
+    "param": "direction",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ClipboardCommands",
+  "name": "clearclipboard",
+  "aliases": [],
+  "desc": "Clear your clipboard",
+  "perms": [
+   "worldedit.clipboard.clear"
+  ],
+  "method": "clearClipboard",
+  "args": []
+ },
+ {
+  "file": "ClipboardCommands",
+  "name": "/revolve",
+  "aliases": [],
+  "desc": "Revolve the selection around a vertical axis",
+  "perms": [
+   "worldedit.revolve"
+  ],
+  "method": "revolve",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The number of pastes",
+    "default": null,
+    "type": "int",
+    "param": "pasteCount",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "m",
+    "argname": null,
+    "desc": "Set the source mask, non-matching blocks are not revolved",
+    "default": null,
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "r",
+    "argname": null,
+    "desc": "Perform revolutions in reverse (counter-clockwise)",
+    "default": null,
+    "type": "boolean",
+    "param": "reverse",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "e",
+    "argname": null,
+    "desc": "Copy entities",
+    "default": null,
+    "type": "boolean",
+    "param": "copyEntities",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "b",
+    "argname": null,
+    "desc": "Copy biomes",
+    "default": null,
+    "type": "boolean",
+    "param": "copyBiomes",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ExpandCommands",
+  "name": "/expand",
+  "aliases": [],
+  "desc": "Expand the selection area",
+  "perms": [],
+  "method": "expand",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Amount to expand the selection by, can be `vert` to expand to the whole vertical column",
+    "default": null,
+    "type": "int",
+    "param": "amount",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Amount to expand the selection by in the other direction",
+    "default": [
+     "0"
+    ],
+    "type": "int",
+    "param": "reverseAmount",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Direction to expand",
+    "default": [
+     "me"
+    ],
+    "type": "List<BlockVector3>",
+    "param": "direction",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GeneralCommands",
+  "name": "/limit",
+  "aliases": [],
+  "desc": "Modify block change limit",
+  "perms": [
+   "worldedit.limit"
+  ],
+  "method": "limit",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The limit to set",
+    "default": [
+     ""
+    ],
+    "type": "Integer",
+    "param": "limit",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GeneralCommands",
+  "name": "/timeout",
+  "aliases": [],
+  "desc": "Modify evaluation timeout time.",
+  "perms": [
+   "worldedit.timeout"
+  ],
+  "method": "timeout",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The timeout time to set",
+    "default": [
+     ""
+    ],
+    "type": "Integer",
+    "param": "limit",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GeneralCommands",
+  "name": "/fast",
+  "aliases": [],
+  "desc": "Toggle fast mode",
+  "perms": [
+   "worldedit.fast"
+  ],
+  "method": "fast",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The new fast mode state",
+    "default": [
+     ""
+    ],
+    "type": "Boolean",
+    "param": "fastMode",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GeneralCommands",
+  "name": "/perf",
+  "aliases": [],
+  "desc": "Toggle side effects for performance",
+  "perms": [
+   "worldedit.perf"
+  ],
+  "method": "perf",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The side effect",
+    "default": [
+     ""
+    ],
+    "type": "SideEffect",
+    "param": "sideEffect",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The new side effect state",
+    "default": [
+     ""
+    ],
+    "type": "State",
+    "param": "newState",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "h",
+    "argname": null,
+    "desc": "Show the info box",
+    "default": null,
+    "type": "boolean",
+    "param": "showInfoBox",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GeneralCommands",
+  "name": "/reorder",
+  "aliases": [],
+  "desc": "Sets the reorder mode of WorldEdit",
+  "perms": [
+   "worldedit.reorder"
+  ],
+  "method": "reorderMode",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The reorder mode",
+    "default": [
+     ""
+    ],
+    "type": "ReorderMode",
+    "param": "reorderMode",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GeneralCommands",
+  "name": "/drawsel",
+  "aliases": [],
+  "desc": "Toggle drawing the current selection",
+  "perms": [
+   "worldedit.drawsel"
+  ],
+  "method": "drawSelection",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The new draw selection state",
+    "default": [
+     ""
+    ],
+    "type": "Boolean",
+    "param": "drawSelection",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GeneralCommands",
+  "name": "/world",
+  "aliases": [],
+  "desc": "Sets the world override",
+  "perms": [
+   "worldedit.world"
+  ],
+  "method": "world",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The world override",
+    "default": [
+     ""
+    ],
+    "type": "World",
+    "param": "world",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GeneralCommands",
+  "name": "/watchdog",
+  "aliases": [],
+  "desc": "Changes watchdog hook state.",
+  "perms": [
+   "worldedit.watchdog"
+  ],
+  "method": "watchdog",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The mode to set the watchdog hook to",
+    "default": [
+     ""
+    ],
+    "type": "HookMode",
+    "param": "hookMode",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GeneralCommands",
+  "name": "gmask",
+  "aliases": [
+   "/gmask"
+  ],
+  "desc": "Set the global mask",
+  "perms": [
+   "worldedit.global-mask"
+  ],
+  "method": "gmask",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The mask to set",
+    "default": [
+     ""
+    ],
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GeneralCommands",
+  "name": "toggleplace",
+  "aliases": [
+   "/toggleplace"
+  ],
+  "desc": "Switch between your position and pos1 for placement",
+  "perms": [
+   "worldedit.placement"
+  ],
+  "method": "togglePlace",
+  "args": []
+ },
+ {
+  "file": "GeneralCommands",
+  "name": "placement",
+  "aliases": [
+   "/placement"
+  ],
+  "desc": "Select which placement to use",
+  "perms": [
+   "worldedit.placement"
+  ],
+  "method": "placement",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Which placement type to use",
+    "default": null,
+    "type": "PlacementType",
+    "param": "placementType",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "number of times to apply the offset",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "multiplier",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "How much to offset from it placement to use",
+    "default": [
+     "0,0,0"
+    ],
+    "type": "BlockVector3",
+    "param": "offset",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GeneralCommands",
+  "name": "searchitem",
+  "aliases": [
+   "/searchitem",
+   "/l",
+   "/search"
+  ],
+  "desc": "Search for an item",
+  "perms": [
+   "worldedit.searchitem"
+  ],
+  "method": "searchItem",
+  "args": [
+   {
+    "kind": "Switch",
+    "flag": "b",
+    "argname": null,
+    "desc": "Only search for blocks",
+    "default": null,
+    "type": "boolean",
+    "param": "blocksOnly",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "i",
+    "argname": null,
+    "desc": "Only search for items",
+    "default": null,
+    "type": "boolean",
+    "param": "itemsOnly",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "p",
+    "argname": null,
+    "desc": "Page of results to return",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "page",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Search query",
+    "default": null,
+    "type": "List<String>",
+    "param": "query",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GeneralCommands",
+  "name": "/registry",
+  "aliases": [],
+  "desc": "Search through the given registry",
+  "perms": [
+   "worldedit.registry"
+  ],
+  "method": "registry",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The registry to search through",
+    "default": null,
+    "type": "Registry<?>",
+    "param": "registry",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "p",
+    "argname": null,
+    "desc": "Page of results to return",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "page",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Search query",
+    "default": [
+     "*"
+    ],
+    "type": "List<String>",
+    "param": "queryBits",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GenerationCommands",
+  "name": "/hcyl",
+  "aliases": [],
+  "desc": "Generates a hollow cylinder.",
+  "perms": [
+   "worldedit.generation.cylinder"
+  ],
+  "method": "hcyl",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to generate",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radii of the cylinder. 1st is N/S, 2nd is E/W",
+    "default": null,
+    "type": "List<Double>",
+    "param": "radii",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The height of the cylinder",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "height",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GenerationCommands",
+  "name": "/cyl",
+  "aliases": [],
+  "desc": "Generates a cylinder.",
+  "perms": [
+   "worldedit.generation.cylinder"
+  ],
+  "method": "cyl",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to generate",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radii of the cylinder. 1st is N/S, 2nd is E/W",
+    "default": null,
+    "type": "List<Double>",
+    "param": "radii",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The height of the cylinder",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "height",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "h",
+    "argname": null,
+    "desc": "Make a hollow cylinder",
+    "default": null,
+    "type": "boolean",
+    "param": "hollow",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GenerationCommands",
+  "name": "/cone",
+  "aliases": [],
+  "desc": "Generates a cone.",
+  "perms": [
+   "worldedit.generation.cone"
+  ],
+  "method": "cone",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to generate",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radii of the cone. 1st is N/S, 2nd is E/W",
+    "default": null,
+    "type": "List<Double>",
+    "param": "radii",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The height of the cone",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "height",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "h",
+    "argname": null,
+    "desc": "Make a hollow cone",
+    "default": null,
+    "type": "boolean",
+    "param": "hollow",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Thickness of the hollow cone",
+    "default": [
+     "1"
+    ],
+    "type": "double",
+    "param": "thickness",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GenerationCommands",
+  "name": "/hsphere",
+  "aliases": [],
+  "desc": "Generates a hollow sphere.",
+  "perms": [
+   "worldedit.generation.sphere"
+  ],
+  "method": "hsphere",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to generate",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radii of the sphere. Order is N/S, U/D, E/W",
+    "default": null,
+    "type": "List<Double>",
+    "param": "radii",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "r",
+    "argname": null,
+    "desc": "Raise the bottom of the sphere to the placement position",
+    "default": null,
+    "type": "boolean",
+    "param": "raised",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GenerationCommands",
+  "name": "/sphere",
+  "aliases": [],
+  "desc": "Generates a filled sphere.",
+  "perms": [
+   "worldedit.generation.sphere"
+  ],
+  "method": "sphere",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to generate",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radii of the sphere. Order is N/S, U/D, E/W",
+    "default": null,
+    "type": "List<Double>",
+    "param": "radii",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "r",
+    "argname": null,
+    "desc": "Raise the bottom of the sphere to the placement position",
+    "default": null,
+    "type": "boolean",
+    "param": "raised",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "h",
+    "argname": null,
+    "desc": "Make a hollow sphere",
+    "default": null,
+    "type": "boolean",
+    "param": "hollow",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GenerationCommands",
+  "name": "forestgen",
+  "aliases": [],
+  "desc": "Generate a forest",
+  "perms": [
+   "worldedit.generation.forest"
+  ],
+  "method": "forestGen",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the forest, in blocks",
+    "default": [
+     "10"
+    ],
+    "type": "int",
+    "param": "size",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The type of forest",
+    "default": [
+     "tree"
+    ],
+    "type": "TreeType",
+    "param": "type",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The density of the forest, between 0 and 100",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "density",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GenerationCommands",
+  "name": "pumpkins",
+  "aliases": [],
+  "desc": "Generate pumpkin patches",
+  "perms": [
+   "worldedit.generation.pumpkins"
+  ],
+  "method": "pumpkins",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the patch",
+    "default": [
+     "10"
+    ],
+    "type": "int",
+    "param": "size",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GenerationCommands",
+  "name": "/feature",
+  "aliases": [],
+  "desc": "Generate Minecraft features",
+  "perms": [
+   "worldedit.generation.feature"
+  ],
+  "method": "feature",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The feature",
+    "default": null,
+    "type": "ConfiguredFeatureType",
+    "param": "feature",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GenerationCommands",
+  "name": "/structure",
+  "aliases": [],
+  "desc": "Generate Minecraft structures",
+  "perms": [
+   "worldedit.generation.structure"
+  ],
+  "method": "structure",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The structure",
+    "default": null,
+    "type": "StructureType",
+    "param": "feature",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GenerationCommands",
+  "name": "/hpyramid",
+  "aliases": [],
+  "desc": "Generate a hollow pyramid",
+  "perms": [
+   "worldedit.generation.pyramid"
+  ],
+  "method": "hollowPyramid",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to set",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the pyramid",
+    "default": null,
+    "type": "int",
+    "param": "size",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GenerationCommands",
+  "name": "/pyramid",
+  "aliases": [],
+  "desc": "Generate a filled pyramid",
+  "perms": [
+   "worldedit.generation.pyramid"
+  ],
+  "method": "pyramid",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to set",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the pyramid",
+    "default": null,
+    "type": "int",
+    "param": "size",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "h",
+    "argname": null,
+    "desc": "Make a hollow pyramid",
+    "default": null,
+    "type": "boolean",
+    "param": "hollow",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GenerationCommands",
+  "name": "/generate",
+  "aliases": [
+   "/gen",
+   "/g"
+  ],
+  "desc": "Generates a shape according to a formula.",
+  "perms": [
+   "worldedit.generation.shape"
+  ],
+  "method": "generate",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to set",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Expression to test block placement locations and set block type",
+    "default": null,
+    "type": "List<String>",
+    "param": "expression",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "h",
+    "argname": null,
+    "desc": "Generate a hollow shape",
+    "default": null,
+    "type": "boolean",
+    "param": "hollow",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "r",
+    "argname": null,
+    "desc": "Use the game's coordinate origin",
+    "default": null,
+    "type": "boolean",
+    "param": "useRawCoords",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "o",
+    "argname": null,
+    "desc": "Use the placement's coordinate origin",
+    "default": null,
+    "type": "boolean",
+    "param": "offsetPlacement",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "c",
+    "argname": null,
+    "desc": "Use the selection's center as origin",
+    "default": null,
+    "type": "boolean",
+    "param": "offsetCenter",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "GenerationCommands",
+  "name": "/generatebiome",
+  "aliases": [
+   "/genbiome",
+   "/gb"
+  ],
+  "desc": "Sets biome according to a formula.",
+  "perms": [
+   "worldedit.generation.shape.biome"
+  ],
+  "method": "generateBiome",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The biome type to set",
+    "default": null,
+    "type": "BiomeType",
+    "param": "target",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Expression to test block placement locations and set biome type",
+    "default": null,
+    "type": "List<String>",
+    "param": "expression",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "h",
+    "argname": null,
+    "desc": "Generate a hollow shape",
+    "default": null,
+    "type": "boolean",
+    "param": "hollow",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "r",
+    "argname": null,
+    "desc": "Use the game's coordinate origin",
+    "default": null,
+    "type": "boolean",
+    "param": "useRawCoords",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "o",
+    "argname": null,
+    "desc": "Use the placement's coordinate origin",
+    "default": null,
+    "type": "boolean",
+    "param": "offsetPlacement",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "c",
+    "argname": null,
+    "desc": "Use the selection's center as origin",
+    "default": null,
+    "type": "boolean",
+    "param": "offsetCenter",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "HistoryCommands",
+  "name": "undo",
+  "aliases": [
+   "/undo"
+  ],
+  "desc": "Undoes the last action (from history)",
+  "perms": [
+   "worldedit.history.undo",
+   "worldedit.history.undo.self"
+  ],
+  "method": "undo",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Number of undoes to perform",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "times",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": "player",
+    "desc": "Undo this player's operations",
+    "default": [
+     ""
+    ],
+    "type": "String",
+    "param": "playerName",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "HistoryCommands",
+  "name": "redo",
+  "aliases": [
+   "/redo"
+  ],
+  "desc": "Redoes the last action (from history)",
+  "perms": [
+   "worldedit.history.redo",
+   "worldedit.history.redo.self"
+  ],
+  "method": "redo",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Number of redoes to perform",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "times",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": "player",
+    "desc": "Redo this player's operations",
+    "default": [
+     ""
+    ],
+    "type": "String",
+    "param": "playerName",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "HistoryCommands",
+  "name": "clearhistory",
+  "aliases": [
+   "/clearhistory"
+  ],
+  "desc": "Clear your history",
+  "perms": [
+   "worldedit.history.clear"
+  ],
+  "method": "clearHistory",
+  "args": []
+ },
+ {
+  "file": "NavigationCommands",
+  "name": "unstuck",
+  "aliases": [
+   "!"
+  ],
+  "desc": "Escape from being stuck inside a block",
+  "perms": [
+   "worldedit.navigation.unstuck"
+  ],
+  "method": "unstuck",
+  "args": []
+ },
+ {
+  "file": "NavigationCommands",
+  "name": "ascend",
+  "aliases": [
+   "asc"
+  ],
+  "desc": "Go up a floor",
+  "perms": [
+   "worldedit.navigation.ascend"
+  ],
+  "method": "ascend",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "# of levels to ascend",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "levels",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "NavigationCommands",
+  "name": "descend",
+  "aliases": [
+   "desc"
+  ],
+  "desc": "Go down a floor",
+  "perms": [
+   "worldedit.navigation.descend"
+  ],
+  "method": "descend",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "# of levels to descend",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "levels",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "NavigationCommands",
+  "name": "ceil",
+  "aliases": [],
+  "desc": "Go to the ceiling",
+  "perms": [
+   "worldedit.navigation.ceiling"
+  ],
+  "method": "ceiling",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "# of blocks to leave above you",
+    "default": [
+     "0"
+    ],
+    "type": "int",
+    "param": "clearance",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "f",
+    "argname": null,
+    "desc": "Force using flight to keep you still",
+    "default": null,
+    "type": "boolean",
+    "param": "forceFlight",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "g",
+    "argname": null,
+    "desc": "Force using glass to keep you still",
+    "default": null,
+    "type": "boolean",
+    "param": "forceGlass",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "NavigationCommands",
+  "name": "thru",
+  "aliases": [],
+  "desc": "Pass through walls",
+  "perms": [
+   "worldedit.navigation.thru.command"
+  ],
+  "method": "thru",
+  "args": []
+ },
+ {
+  "file": "NavigationCommands",
+  "name": "jumpto",
+  "aliases": [
+   "j"
+  ],
+  "desc": "Teleport to a location",
+  "perms": [
+   "worldedit.navigation.jumpto.command"
+  ],
+  "method": "jumpTo",
+  "args": []
+ },
+ {
+  "file": "NavigationCommands",
+  "name": "up",
+  "aliases": [],
+  "desc": "Go upwards some distance",
+  "perms": [
+   "worldedit.navigation.up"
+  ],
+  "method": "up",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Distance to go upwards",
+    "default": null,
+    "type": "int",
+    "param": "distance",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "f",
+    "argname": null,
+    "desc": "Force using flight to keep you still",
+    "default": null,
+    "type": "boolean",
+    "param": "forceFlight",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "g",
+    "argname": null,
+    "desc": "Force using glass to keep you still",
+    "default": null,
+    "type": "boolean",
+    "param": "forceGlass",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "PaintBrushCommands",
+  "name": "forest",
+  "aliases": [],
+  "desc": "Plant trees",
+  "perms": [
+   "worldedit.brush.item"
+  ],
+  "method": "forest",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The type of tree to plant",
+    "default": null,
+    "type": "TreeType",
+    "param": "type",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "PaintBrushCommands",
+  "name": "item",
+  "aliases": [],
+  "desc": "Use an item",
+  "perms": [
+   "worldedit.brush.item"
+  ],
+  "method": "item",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The type of item to use",
+    "default": null,
+    "type": "BaseItem",
+    "param": "item",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The direction in which the item will be applied",
+    "default": [
+     "up"
+    ],
+    "type": "com.sk89q.worldedit.util.Direction",
+    "param": "direction",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "PaintBrushCommands",
+  "name": "set",
+  "aliases": [],
+  "desc": "Place a block",
+  "perms": [],
+  "method": "set",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to use",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/set",
+  "aliases": [],
+  "desc": "Sets all the blocks in the region",
+  "perms": [
+   "worldedit.region.set"
+  ],
+  "method": "set",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to set",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/line",
+  "aliases": [],
+  "desc": "Draws line segments between cuboid selection corners or convex polyhedral selection vertices",
+  "perms": [
+   "worldedit.region.line"
+  ],
+  "method": "line",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to place",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The thickness of the line",
+    "default": [
+     "0"
+    ],
+    "type": "double",
+    "param": "thickness",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "h",
+    "argname": null,
+    "desc": "Generate only a shell",
+    "default": null,
+    "type": "boolean",
+    "param": "shell",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/curve",
+  "aliases": [],
+  "desc": "Draws a spline through selected points",
+  "perms": [
+   "worldedit.region.curve"
+  ],
+  "method": "curve",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to place",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The thickness of the curve",
+    "default": [
+     "0"
+    ],
+    "type": "double",
+    "param": "thickness",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "h",
+    "argname": null,
+    "desc": "Generate only a shell",
+    "default": null,
+    "type": "boolean",
+    "param": "shell",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/replace",
+  "aliases": [
+   "/re",
+   "/rep"
+  ],
+  "desc": "Replace all blocks in the selection with another",
+  "perms": [
+   "worldedit.region.replace"
+  ],
+  "method": "replace",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The mask representing blocks to replace",
+    "default": [
+     ""
+    ],
+    "type": "Mask",
+    "param": "from",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to replace with",
+    "default": null,
+    "type": "Pattern",
+    "param": "to",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/overlay",
+  "aliases": [],
+  "desc": "Set a block on top of blocks in the region",
+  "perms": [
+   "worldedit.region.overlay"
+  ],
+  "method": "overlay",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to overlay",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/center",
+  "aliases": [
+   "/middle"
+  ],
+  "desc": "Set the center block(s)",
+  "perms": [
+   "worldedit.region.center"
+  ],
+  "method": "center",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to set",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/naturalize",
+  "aliases": [],
+  "desc": "3 layers of dirt on top then rock below",
+  "perms": [
+   "worldedit.region.naturalize"
+  ],
+  "method": "naturalize",
+  "args": []
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/walls",
+  "aliases": [],
+  "desc": "Build the four sides of the selection",
+  "perms": [
+   "worldedit.region.walls"
+  ],
+  "method": "walls",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to set",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/faces",
+  "aliases": [
+   "/outline"
+  ],
+  "desc": "Build the walls, ceiling, and floor of a selection",
+  "perms": [
+   "worldedit.region.faces"
+  ],
+  "method": "faces",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to set",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/smooth",
+  "aliases": [],
+  "desc": "Smooth the elevation in the selection",
+  "perms": [
+   "worldedit.region.smooth"
+  ],
+  "method": "smooth",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "# of iterations to perform",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "iterations",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The mask of blocks to use as the height map",
+    "default": [
+     ""
+    ],
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/snowsmooth",
+  "aliases": [],
+  "desc": "Smooth the elevation in the selection with snow layers",
+  "perms": [
+   "worldedit.region.snowsmooth"
+  ],
+  "method": "snowSmooth",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "# of iterations to perform",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "iterations",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "l",
+    "argname": null,
+    "desc": "Set the amount of snow blocks under the snow",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "snowBlockCount",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "m",
+    "argname": null,
+    "desc": "The mask of blocks to use as the height map",
+    "default": null,
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/move",
+  "aliases": [],
+  "desc": "Move the contents of the selection",
+  "perms": [
+   "worldedit.region.move"
+  ],
+  "method": "move",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "number of times to apply the offset",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "multiplier",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The offset to move",
+    "default": [
+     "forward"
+    ],
+    "type": "BlockVector3",
+    "param": "offset",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to leave",
+    "default": [
+     "air"
+    ],
+    "type": "Pattern",
+    "param": "replace",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "s",
+    "argname": null,
+    "desc": "Shift the selection to the target location",
+    "default": null,
+    "type": "boolean",
+    "param": "moveSelection",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "a",
+    "argname": null,
+    "desc": "Ignore air blocks",
+    "default": null,
+    "type": "boolean",
+    "param": "ignoreAirBlocks",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "e",
+    "argname": null,
+    "desc": "Also copy entities",
+    "default": null,
+    "type": "boolean",
+    "param": "copyEntities",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "b",
+    "argname": null,
+    "desc": "Also copy biomes",
+    "default": null,
+    "type": "boolean",
+    "param": "copyBiomes",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "m",
+    "argname": null,
+    "desc": "Set the include mask, non-matching blocks become air",
+    "default": null,
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/stack",
+  "aliases": [],
+  "desc": "Repeat the contents of the selection",
+  "perms": [
+   "worldedit.region.stack"
+  ],
+  "method": "stack",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "# of copies to stack",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "count",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "How far to move the contents each stack",
+    "default": [
+     "forward"
+    ],
+    "type": "BlockVector3",
+    "param": "offset",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "s",
+    "argname": null,
+    "desc": "Shift the selection to the last stacked copy",
+    "default": null,
+    "type": "boolean",
+    "param": "moveSelection",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "a",
+    "argname": null,
+    "desc": "Ignore air blocks",
+    "default": null,
+    "type": "boolean",
+    "param": "ignoreAirBlocks",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "e",
+    "argname": null,
+    "desc": "Also copy entities",
+    "default": null,
+    "type": "boolean",
+    "param": "copyEntities",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "b",
+    "argname": null,
+    "desc": "Also copy biomes",
+    "default": null,
+    "type": "boolean",
+    "param": "copyBiomes",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "r",
+    "argname": null,
+    "desc": "Use block units",
+    "default": null,
+    "type": "boolean",
+    "param": "blockUnits",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "m",
+    "argname": null,
+    "desc": "Set the include mask, non-matching blocks become air",
+    "default": null,
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/regen",
+  "aliases": [],
+  "desc": "Regenerates the contents of the selection",
+  "perms": [
+   "worldedit.regen"
+  ],
+  "method": "regenerate",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The seed to regenerate with, otherwise uses world seed",
+    "default": [
+     ""
+    ],
+    "type": "Long",
+    "param": "seed",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "b",
+    "argname": null,
+    "desc": "Regenerate biomes as well",
+    "default": null,
+    "type": "boolean",
+    "param": "regenBiomes",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "c",
+    "argname": null,
+    "desc": "Regenerate to the clipboard",
+    "default": null,
+    "type": "boolean",
+    "param": "toClipboard",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/deform",
+  "aliases": [],
+  "desc": "Deforms a selected region with an expression",
+  "perms": [
+   "worldedit.region.deform"
+  ],
+  "method": "deform",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The expression to use",
+    "default": null,
+    "type": "List<String>",
+    "param": "expression",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "r",
+    "argname": null,
+    "desc": "Use the game's coordinate origin",
+    "default": null,
+    "type": "boolean",
+    "param": "useRawCoords",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "o",
+    "argname": null,
+    "desc": "Use the placement's coordinate origin",
+    "default": null,
+    "type": "boolean",
+    "param": "offsetPlacement",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "c",
+    "argname": null,
+    "desc": "Use the selection's center as origin",
+    "default": null,
+    "type": "boolean",
+    "param": "offsetCenter",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "l",
+    "argname": null,
+    "desc": "Fetch from the clipboard instead of the world",
+    "default": null,
+    "type": "boolean",
+    "param": "useClipboard",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/hollow",
+  "aliases": [],
+  "desc": "Hollows out the object contained in this selection",
+  "perms": [
+   "worldedit.region.hollow"
+  ],
+  "method": "hollow",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Thickness of the shell to leave",
+    "default": [
+     "0"
+    ],
+    "type": "int",
+    "param": "thickness",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to replace the hollowed area with",
+    "default": [
+     "air"
+    ],
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/forest",
+  "aliases": [],
+  "desc": "Make a forest within the region",
+  "perms": [
+   "worldedit.region.forest"
+  ],
+  "method": "forest",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The type of tree to place",
+    "default": [
+     "tree"
+    ],
+    "type": "TreeType",
+    "param": "type",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The density of the forest",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "density",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/flora",
+  "aliases": [],
+  "desc": "Make flora within the region",
+  "perms": [
+   "worldedit.region.flora"
+  ],
+  "method": "flora",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The density of the forest",
+    "default": [
+     "5"
+    ],
+    "type": "double",
+    "param": "density",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "RegionCommands",
+  "name": "/update",
+  "aliases": [],
+  "desc": "Apply side effects to your selection",
+  "perms": [
+   "worldedit.update"
+  ],
+  "method": "update",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The side effects",
+    "default": [
+     ""
+    ],
+    "type": "SideEffectSet",
+    "param": "sideEffectSet",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SchematicCommands",
+  "name": "load",
+  "aliases": [],
+  "desc": "Load a schematic into your clipboard",
+  "perms": [
+   "worldedit.clipboard.load",
+   "worldedit.schematic.load"
+  ],
+  "method": "load",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "File name.",
+    "default": null,
+    "type": "Path",
+    "param": "schematic",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Format name.",
+    "default": [
+     "sponge"
+    ],
+    "type": "ClipboardFormat",
+    "param": "format",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SchematicCommands",
+  "name": "save",
+  "aliases": [],
+  "desc": "Save your clipboard into a schematic file",
+  "perms": [
+   "worldedit.clipboard.save",
+   "worldedit.schematic.save"
+  ],
+  "method": "save",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "File name.",
+    "default": null,
+    "type": "String",
+    "param": "filename",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Format name.",
+    "default": [
+     "sponge"
+    ],
+    "type": "ClipboardFormat",
+    "param": "format",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "f",
+    "argname": null,
+    "desc": "Overwrite an existing file.",
+    "default": null,
+    "type": "boolean",
+    "param": "allowOverwrite",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SchematicCommands",
+  "name": "share",
+  "aliases": [],
+  "desc": "Share your clipboard as a schematic online",
+  "perms": [
+   "worldedit.clipboard.share",
+   "worldedit.schematic.share"
+  ],
+  "method": "share",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Schematic name. Defaults to name-millis",
+    "default": [
+     ""
+    ],
+    "type": "String",
+    "param": "schematicName",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Share location",
+    "default": [
+     "ehpaste"
+    ],
+    "type": "ClipboardShareDestination",
+    "param": "destination",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Format name",
+    "default": [
+     ""
+    ],
+    "type": "ClipboardFormat",
+    "param": "format",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SchematicCommands",
+  "name": "delete",
+  "aliases": [
+   "d"
+  ],
+  "desc": "Delete a saved schematic",
+  "perms": [
+   "worldedit.schematic.delete"
+  ],
+  "method": "delete",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "File name.",
+    "default": null,
+    "type": "Path",
+    "param": "schematic",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SchematicCommands",
+  "name": "formats",
+  "aliases": [
+   "listformats",
+   "f"
+  ],
+  "desc": "List available formats",
+  "perms": [
+   "worldedit.schematic.formats"
+  ],
+  "method": "formats",
+  "args": []
+ },
+ {
+  "file": "SchematicCommands",
+  "name": "list",
+  "aliases": [
+   "all",
+   "ls"
+  ],
+  "desc": "List saved schematics",
+  "perms": [
+   "worldedit.schematic.list"
+  ],
+  "method": "list",
+  "args": [
+   {
+    "kind": "ArgFlag",
+    "flag": "p",
+    "argname": null,
+    "desc": "Page to view.",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "page",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "d",
+    "argname": null,
+    "desc": "Sort by date, oldest first",
+    "default": null,
+    "type": "boolean",
+    "param": "oldFirst",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "n",
+    "argname": null,
+    "desc": "Sort by date, newest first",
+    "default": null,
+    "type": "boolean",
+    "param": "newFirst",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ScriptingCommands",
+  "name": "cs",
+  "aliases": [],
+  "desc": "Execute a CraftScript",
+  "perms": [
+   "worldedit.scripting.execute"
+  ],
+  "method": "execute",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Filename of the CraftScript to load",
+    "default": null,
+    "type": "String",
+    "param": "filename",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Arguments to the CraftScript",
+    "default": [
+     ""
+    ],
+    "type": "List<String>",
+    "param": "args",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ScriptingCommands",
+  "name": ".s",
+  "aliases": [],
+  "desc": "Execute last CraftScript",
+  "perms": [
+   "worldedit.scripting.execute"
+  ],
+  "method": "executeLast",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Arguments to the CraftScript",
+    "default": [
+     ""
+    ],
+    "type": "List<String>",
+    "param": "args",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/pos",
+  "aliases": [],
+  "desc": "Set positions",
+  "perms": [
+   "worldedit.selection.pos"
+  ],
+  "method": "pos",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Coordinates to set the primary position to. Defaults to the player position if not passed.",
+    "default": [
+     ""
+    ],
+    "type": "BlockVector3",
+    "param": "pos1",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Coordinates to add as secondary positions. Defaults to the player position if not passed.",
+    "default": [
+     ""
+    ],
+    "type": "List<BlockVector3>",
+    "param": "pos2",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "s",
+    "argname": null,
+    "desc": "Selector to switch to",
+    "default": null,
+    "type": "SelectorChoice",
+    "param": "selectorChoice",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/pos1",
+  "aliases": [],
+  "desc": "Set position 1",
+  "perms": [
+   "worldedit.selection.pos"
+  ],
+  "method": "pos1",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Coordinates to set position 1 to",
+    "default": [
+     ""
+    ],
+    "type": "BlockVector3",
+    "param": "coordinates",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/pos2",
+  "aliases": [],
+  "desc": "Set position 2",
+  "perms": [
+   "worldedit.selection.pos"
+  ],
+  "method": "pos2",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Coordinates to set position 2 to",
+    "default": [
+     ""
+    ],
+    "type": "BlockVector3",
+    "param": "coordinates",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/hpos1",
+  "aliases": [],
+  "desc": "Set position 1 to targeted block",
+  "perms": [
+   "worldedit.selection.hpos"
+  ],
+  "method": "hpos1",
+  "args": []
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/hpos2",
+  "aliases": [],
+  "desc": "Set position 2 to targeted block",
+  "perms": [
+   "worldedit.selection.hpos"
+  ],
+  "method": "hpos2",
+  "args": []
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/chunk",
+  "aliases": [],
+  "desc": "Set the selection to your current chunk.",
+  "perms": [
+   "worldedit.selection.chunk"
+  ],
+  "method": "chunk",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The chunk to select",
+    "default": [
+     ""
+    ],
+    "type": "BlockVector3",
+    "param": "coordinates",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "s",
+    "argname": null,
+    "desc": "Expand your selection to encompass all chunks that are part of it",
+    "default": null,
+    "type": "boolean",
+    "param": "expandSelection",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "c",
+    "argname": null,
+    "desc": "Use chunk coordinates instead of block coordinates",
+    "default": null,
+    "type": "boolean",
+    "param": "useChunkCoordinates",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/wand",
+  "aliases": [],
+  "desc": "Get the wand item",
+  "perms": [
+   "worldedit.wand"
+  ],
+  "method": "wand",
+  "args": [
+   {
+    "kind": "Switch",
+    "flag": "n",
+    "argname": null,
+    "desc": "Get a navigation wand",
+    "default": null,
+    "type": "boolean",
+    "param": "navWand",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "toggleeditwand",
+  "aliases": [],
+  "desc": "Remind the user that the wand is now a tool and can be unbound with /tool none.",
+  "perms": [
+   "worldedit.wand.toggle"
+  ],
+  "method": "toggleWand",
+  "args": []
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/contract",
+  "aliases": [],
+  "desc": "Contract the selection area",
+  "perms": [
+   "worldedit.selection.contract"
+  ],
+  "method": "contract",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Amount to contract the selection by",
+    "default": null,
+    "type": "int",
+    "param": "amount",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Amount to contract the selection by in the other direction",
+    "default": [
+     "0"
+    ],
+    "type": "int",
+    "param": "reverseAmount",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Direction to contract",
+    "default": [
+     "me"
+    ],
+    "type": "List<BlockVector3>",
+    "param": "direction",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/shift",
+  "aliases": [],
+  "desc": "Shift the selection area",
+  "perms": [
+   "worldedit.selection.shift"
+  ],
+  "method": "shift",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Amount to shift the selection by",
+    "default": null,
+    "type": "int",
+    "param": "amount",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Direction to contract",
+    "default": [
+     "me"
+    ],
+    "type": "List<BlockVector3>",
+    "param": "direction",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/outset",
+  "aliases": [],
+  "desc": "Outset the selection area",
+  "perms": [
+   "worldedit.selection.outset"
+  ],
+  "method": "outset",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Amount to expand the selection by in all directions",
+    "default": null,
+    "type": "int",
+    "param": "amount",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "h",
+    "argname": null,
+    "desc": "Only expand horizontally",
+    "default": null,
+    "type": "boolean",
+    "param": "onlyHorizontal",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "v",
+    "argname": null,
+    "desc": "Only expand vertically",
+    "default": null,
+    "type": "boolean",
+    "param": "onlyVertical",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/inset",
+  "aliases": [],
+  "desc": "Inset the selection area",
+  "perms": [
+   "worldedit.selection.inset"
+  ],
+  "method": "inset",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Amount to contract the selection by in all directions",
+    "default": null,
+    "type": "int",
+    "param": "amount",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "h",
+    "argname": null,
+    "desc": "Only contract horizontally",
+    "default": null,
+    "type": "boolean",
+    "param": "onlyHorizontal",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "v",
+    "argname": null,
+    "desc": "Only contract vertically",
+    "default": null,
+    "type": "boolean",
+    "param": "onlyVertical",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/trim",
+  "aliases": [],
+  "desc": "Minimize the selection to encompass matching blocks",
+  "perms": [
+   "worldedit.selection.trim"
+  ],
+  "method": "trim",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Mask of blocks to keep within the selection",
+    "default": [
+     "#existing"
+    ],
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/size",
+  "aliases": [],
+  "desc": "Get information about the selection",
+  "perms": [
+   "worldedit.selection.size"
+  ],
+  "method": "size",
+  "args": [
+   {
+    "kind": "Switch",
+    "flag": "c",
+    "argname": null,
+    "desc": "Get clipboard info instead",
+    "default": null,
+    "type": "boolean",
+    "param": "clipboardInfo",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/count",
+  "aliases": [],
+  "desc": "Counts the number of blocks matching a mask",
+  "perms": [
+   "worldedit.analysis.count"
+  ],
+  "method": "count",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The mask of blocks to match",
+    "default": null,
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/distr",
+  "aliases": [],
+  "desc": "Get the distribution of blocks in the selection",
+  "perms": [
+   "worldedit.analysis.distr"
+  ],
+  "method": "distr",
+  "args": [
+   {
+    "kind": "Switch",
+    "flag": "c",
+    "argname": null,
+    "desc": "Get the distribution of the clipboard instead",
+    "default": null,
+    "type": "boolean",
+    "param": "clipboardDistr",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "d",
+    "argname": null,
+    "desc": "Separate blocks by state",
+    "default": null,
+    "type": "boolean",
+    "param": "separateStates",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "p",
+    "argname": null,
+    "desc": "Gets page from a previous distribution.",
+    "default": null,
+    "type": "Integer",
+    "param": "page",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "m",
+    "argname": null,
+    "desc": "Only include blocks matching the given mask",
+    "default": null,
+    "type": "Mask",
+    "param": "sourceMask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SelectionCommands",
+  "name": "/sel",
+  "aliases": [
+   ";",
+   "/desel",
+   "/deselect"
+  ],
+  "desc": "Choose a region selector",
+  "perms": [],
+  "method": "select",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Selector to switch to",
+    "default": [
+     ""
+    ],
+    "type": "SelectorChoiceOrList",
+    "param": "selectorChoiceOrList",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "d",
+    "argname": null,
+    "desc": "Set default selector",
+    "default": null,
+    "type": "boolean",
+    "param": "setDefaultSelector",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SnapshotCommands",
+  "name": "list",
+  "aliases": [],
+  "desc": "List snapshots",
+  "perms": [
+   "worldedit.snapshots.list"
+  ],
+  "method": "list",
+  "args": [
+   {
+    "kind": "ArgFlag",
+    "flag": "p",
+    "argname": null,
+    "desc": "Page of results to return",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "page",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SnapshotCommands",
+  "name": "use",
+  "aliases": [],
+  "desc": "Choose a snapshot to use",
+  "perms": [
+   "worldedit.snapshots.restore"
+  ],
+  "method": "use",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Snapshot to use",
+    "default": null,
+    "type": "String",
+    "param": "name",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SnapshotCommands",
+  "name": "sel",
+  "aliases": [],
+  "desc": "Choose the snapshot based on the list id",
+  "perms": [
+   "worldedit.snapshots.restore"
+  ],
+  "method": "sel",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The list ID to select",
+    "default": null,
+    "type": "int",
+    "param": "index",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SnapshotCommands",
+  "name": "before",
+  "aliases": [],
+  "desc": "Choose the first snapshot that occurred before the given date",
+  "perms": [
+   "worldedit.snapshots.restore"
+  ],
+  "method": "before",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The date before which to search for snapshots",
+    "default": null,
+    "type": "ZonedDateTime",
+    "param": "date",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SnapshotCommands",
+  "name": "after",
+  "aliases": [],
+  "desc": "Choose the first snapshot that occurred after the given date",
+  "perms": [
+   "worldedit.snapshots.restore"
+  ],
+  "method": "after",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The date after which to search for snapshots",
+    "default": null,
+    "type": "ZonedDateTime",
+    "param": "date",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SnapshotUtilCommands",
+  "name": "restore",
+  "aliases": [
+   "/restore"
+  ],
+  "desc": "Restore the selection from a snapshot",
+  "perms": [
+   "worldedit.snapshots.restore"
+  ],
+  "method": "restore",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": "snapshot",
+    "desc": "The snapshot to restore",
+    "default": [
+     ""
+    ],
+    "type": "String",
+    "param": "snapshotName",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SuperPickaxeCommands",
+  "name": "single",
+  "aliases": [],
+  "desc": "Enable the single block super pickaxe mode",
+  "perms": [
+   "worldedit.superpickaxe"
+  ],
+  "method": "single",
+  "args": []
+ },
+ {
+  "file": "SuperPickaxeCommands",
+  "name": "area",
+  "aliases": [],
+  "desc": "Enable the area super pickaxe pickaxe mode",
+  "perms": [
+   "worldedit.superpickaxe.area"
+  ],
+  "method": "area",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The range of the area pickaxe",
+    "default": null,
+    "type": "int",
+    "param": "range",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "SuperPickaxeCommands",
+  "name": "recursive",
+  "aliases": [
+   "recur"
+  ],
+  "desc": "Enable the recursive super pickaxe pickaxe mode",
+  "perms": [
+   "worldedit.superpickaxe.recursive"
+  ],
+  "method": "recursive",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The range of the recursive pickaxe",
+    "default": null,
+    "type": "double",
+    "param": "range",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ToolCommands",
+  "name": "none",
+  "aliases": [
+   "unbind"
+  ],
+  "desc": "Unbind a bound tool from your current item",
+  "perms": [
+   "worldedit.setwand"
+  ],
+  "method": "none",
+  "args": []
+ },
+ {
+  "file": "ToolCommands",
+  "name": "selwand",
+  "aliases": [
+   "/selwand"
+  ],
+  "desc": "Selection wand tool",
+  "perms": [
+   "worldedit.setwand"
+  ],
+  "method": "selwand",
+  "args": []
+ },
+ {
+  "file": "ToolCommands",
+  "name": "navwand",
+  "aliases": [
+   "/navwand"
+  ],
+  "desc": "Navigation wand tool",
+  "perms": [
+   "worldedit.setwand"
+  ],
+  "method": "navwand",
+  "args": []
+ },
+ {
+  "file": "ToolCommands",
+  "name": "info",
+  "aliases": [],
+  "desc": "Block information tool",
+  "perms": [
+   "worldedit.tool.info"
+  ],
+  "method": "info",
+  "args": []
+ },
+ {
+  "file": "ToolCommands",
+  "name": "tree",
+  "aliases": [],
+  "desc": "Tree generator tool",
+  "perms": [
+   "worldedit.tool.tree"
+  ],
+  "method": "tree",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Type of tree to generate",
+    "default": [
+     "tree"
+    ],
+    "type": "TreeType",
+    "param": "type",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ToolCommands",
+  "name": "stacker",
+  "aliases": [],
+  "desc": "Block stacker tool",
+  "perms": [
+   "worldedit.tool.stack"
+  ],
+  "method": "stacker",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The max range of the stack",
+    "default": [
+     "10"
+    ],
+    "type": "int",
+    "param": "range",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The mask to stack until",
+    "default": [
+     "!#existing"
+    ],
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ToolCommands",
+  "name": "repl",
+  "aliases": [],
+  "desc": "Block replacer tool",
+  "perms": [
+   "worldedit.tool.replacer"
+  ],
+  "method": "repl",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to place",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ToolCommands",
+  "name": "cycler",
+  "aliases": [],
+  "desc": "Block data cycler tool",
+  "perms": [
+   "worldedit.tool.data-cycler"
+  ],
+  "method": "cycler",
+  "args": []
+ },
+ {
+  "file": "ToolCommands",
+  "name": "floodfill",
+  "aliases": [
+   "flood"
+  ],
+  "desc": "Flood fill tool",
+  "perms": [
+   "worldedit.tool.flood-fill"
+  ],
+  "method": "floodFill",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern to flood fill",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The range to perform the fill",
+    "default": null,
+    "type": "int",
+    "param": "range",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ToolCommands",
+  "name": "deltree",
+  "aliases": [],
+  "desc": "Floating tree remover tool",
+  "perms": [
+   "worldedit.tool.deltree"
+  ],
+  "method": "deltree",
+  "args": []
+ },
+ {
+  "file": "ToolCommands",
+  "name": "farwand",
+  "aliases": [],
+  "desc": "Wand at a distance tool",
+  "perms": [
+   "worldedit.tool.farwand"
+  ],
+  "method": "farwand",
+  "args": []
+ },
+ {
+  "file": "ToolCommands",
+  "name": "lrbuild",
+  "aliases": [
+   "/lrbuild"
+  ],
+  "desc": "Long-range building tool",
+  "perms": [
+   "worldedit.tool.lrbuild"
+  ],
+  "method": "longrangebuildtool",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Pattern to set on left-click",
+    "default": null,
+    "type": "Pattern",
+    "param": "primary",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Pattern to set on right-click",
+    "default": null,
+    "type": "Pattern",
+    "param": "secondary",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ToolUtilCommands",
+  "name": "/",
+  "aliases": [
+   ","
+  ],
+  "desc": "Toggle the super pickaxe function",
+  "perms": [
+   "worldedit.superpickaxe"
+  ],
+  "method": "togglePickaxe",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The new super pickaxe state",
+    "default": [
+     ""
+    ],
+    "type": "Boolean",
+    "param": "superPickaxe",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ToolUtilCommands",
+  "name": "mask",
+  "aliases": [],
+  "desc": "Set the brush mask",
+  "perms": [
+   "worldedit.brush.options.mask"
+  ],
+  "method": "mask",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The mask to set",
+    "default": [
+     ""
+    ],
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ToolUtilCommands",
+  "name": "material",
+  "aliases": [
+   "/material"
+  ],
+  "desc": "Set the brush material",
+  "perms": [
+   "worldedit.brush.options.material"
+  ],
+  "method": "material",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to use",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ToolUtilCommands",
+  "name": "range",
+  "aliases": [],
+  "desc": "Set the brush range",
+  "perms": [
+   "worldedit.brush.options.range"
+  ],
+  "method": "range",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The range of the brush",
+    "default": null,
+    "type": "int",
+    "param": "range",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ToolUtilCommands",
+  "name": "size",
+  "aliases": [],
+  "desc": "Set the brush size",
+  "perms": [
+   "worldedit.brush.options.size"
+  ],
+  "method": "size",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The size of the brush",
+    "default": null,
+    "type": "int",
+    "param": "size",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "ToolUtilCommands",
+  "name": "tracemask",
+  "aliases": [],
+  "desc": "Set the mask used to stop tool traces",
+  "perms": [
+   "worldedit.brush.options.tracemask"
+  ],
+  "method": "traceMask",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The trace mask to set",
+    "default": [
+     ""
+    ],
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "/fill",
+  "aliases": [],
+  "desc": "Fill a hole",
+  "perms": [
+   "worldedit.fill"
+  ],
+  "method": "fill",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The blocks to fill with",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius to fill in",
+    "default": null,
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The depth to fill",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "depth",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "/fillr",
+  "aliases": [],
+  "desc": "Fill a hole recursively",
+  "perms": [
+   "worldedit.fill.recursive"
+  ],
+  "method": "fillr",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The blocks to fill with",
+    "default": null,
+    "type": "Pattern",
+    "param": "pattern",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius to fill in",
+    "default": null,
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The depth to fill",
+    "default": [
+     ""
+    ],
+    "type": "Integer",
+    "param": "depth",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "/drain",
+  "aliases": [],
+  "desc": "Drain a pool",
+  "perms": [
+   "worldedit.drain"
+  ],
+  "method": "drain",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius to drain",
+    "default": null,
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "w",
+    "argname": null,
+    "desc": "Also un-waterlog blocks",
+    "default": null,
+    "type": "boolean",
+    "param": "waterlogged",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "fixlava",
+  "aliases": [
+   "/fixlava"
+  ],
+  "desc": "Fix lava to be stationary",
+  "perms": [
+   "worldedit.fixlava"
+  ],
+  "method": "fixLava",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius to fix in",
+    "default": null,
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "fixwater",
+  "aliases": [
+   "/fixwater"
+  ],
+  "desc": "Fix water to be stationary",
+  "perms": [
+   "worldedit.fixwater"
+  ],
+  "method": "fixWater",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius to fix in",
+    "default": null,
+    "type": "double",
+    "param": "radius",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "removeabove",
+  "aliases": [
+   "/removeabove"
+  ],
+  "desc": "Remove blocks above your head.",
+  "perms": [
+   "worldedit.removeabove"
+  ],
+  "method": "removeAbove",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The apothem of the square to remove from",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "size",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The maximum height above you to remove from",
+    "default": [
+     "default-vertical-height"
+    ],
+    "type": "int",
+    "param": "height",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "removebelow",
+  "aliases": [
+   "/removebelow"
+  ],
+  "desc": "Remove blocks below you.",
+  "perms": [
+   "worldedit.removebelow"
+  ],
+  "method": "removeBelow",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The apothem of the square to remove from",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "size",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The maximum height below you to remove from",
+    "default": [
+     "default-vertical-height"
+    ],
+    "type": "int",
+    "param": "height",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "removenear",
+  "aliases": [
+   "/removenear"
+  ],
+  "desc": "Remove blocks near you.",
+  "perms": [
+   "worldedit.removenear"
+  ],
+  "method": "removeNear",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The mask of blocks to remove",
+    "default": null,
+    "type": "Mask",
+    "param": "mask",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius of the square to remove from",
+    "default": [
+     "50"
+    ],
+    "type": "int",
+    "param": "radius",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "replacenear",
+  "aliases": [
+   "/replacenear"
+  ],
+  "desc": "Replace nearby blocks",
+  "perms": [
+   "worldedit.replacenear"
+  ],
+  "method": "replaceNear",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius of the square to remove in",
+    "default": null,
+    "type": "int",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The mask matching blocks to remove",
+    "default": [
+     ""
+    ],
+    "type": "Mask",
+    "param": "from",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The pattern of blocks to replace with",
+    "default": null,
+    "type": "Pattern",
+    "param": "to",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "snow",
+  "aliases": [
+   "/snow"
+  ],
+  "desc": "Simulates snow",
+  "perms": [
+   "worldedit.snow"
+  ],
+  "method": "snow",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius of the cylinder to snow in",
+    "default": [
+     "10"
+    ],
+    "type": "double",
+    "param": "size",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The height of the cylinder to snow in",
+    "default": [
+     "default-vertical-height"
+    ],
+    "type": "int",
+    "param": "height",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "s",
+    "argname": null,
+    "desc": "Stack snow layers",
+    "default": null,
+    "type": "boolean",
+    "param": "stack",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "thaw",
+  "aliases": [
+   "/thaw"
+  ],
+  "desc": "Thaws the area",
+  "perms": [
+   "worldedit.thaw"
+  ],
+  "method": "thaw",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius of the cylinder to thaw in",
+    "default": [
+     "10"
+    ],
+    "type": "double",
+    "param": "size",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The height of the cylinder to thaw in",
+    "default": [
+     "default-vertical-height"
+    ],
+    "type": "int",
+    "param": "height",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "green",
+  "aliases": [
+   "/green"
+  ],
+  "desc": "Converts dirt to grass blocks in the area",
+  "perms": [
+   "worldedit.green"
+  ],
+  "method": "green",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius of the cylinder to convert in",
+    "default": [
+     "10"
+    ],
+    "type": "double",
+    "param": "size",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The height of the cylinder to convert in",
+    "default": [
+     "default-vertical-height"
+    ],
+    "type": "int",
+    "param": "height",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "f",
+    "argname": null,
+    "desc": "Also convert coarse dirt",
+    "default": null,
+    "type": "boolean",
+    "param": "convertCoarse",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "extinguish",
+  "aliases": [
+   "/ex",
+   "/ext",
+   "/extinguish",
+   "ex",
+   "ext"
+  ],
+  "desc": "Extinguish nearby fire",
+  "perms": [
+   "worldedit.extinguish"
+  ],
+  "method": "extinguish",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius of the square to remove in",
+    "default": [
+     ""
+    ],
+    "type": "Integer",
+    "param": "radius",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "butcher",
+  "aliases": [],
+  "desc": "Kill all or nearby mobs",
+  "perms": [
+   "worldedit.butcher"
+  ],
+  "method": "butcher",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Radius to kill mobs in",
+    "default": [
+     ""
+    ],
+    "type": "Integer",
+    "param": "radius",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "p",
+    "argname": null,
+    "desc": "Also kill pets",
+    "default": null,
+    "type": "boolean",
+    "param": "killPets",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "n",
+    "argname": null,
+    "desc": "Also kill NPCs",
+    "default": null,
+    "type": "boolean",
+    "param": "killNpcs",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "g",
+    "argname": null,
+    "desc": "Also kill golems",
+    "default": null,
+    "type": "boolean",
+    "param": "killGolems",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "a",
+    "argname": null,
+    "desc": "Also kill animals",
+    "default": null,
+    "type": "boolean",
+    "param": "killAnimals",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "b",
+    "argname": null,
+    "desc": "Also kill ambient mobs",
+    "default": null,
+    "type": "boolean",
+    "param": "killAmbient",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "t",
+    "argname": null,
+    "desc": "Also kill mobs with name tags",
+    "default": null,
+    "type": "boolean",
+    "param": "killWithName",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "f",
+    "argname": null,
+    "desc": "Also kill all friendly mobs (Applies the flags `-abgnpt`)",
+    "default": null,
+    "type": "boolean",
+    "param": "killFriendly",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "r",
+    "argname": null,
+    "desc": "Also destroy armor stands",
+    "default": null,
+    "type": "boolean",
+    "param": "killArmorStands",
+    "mods": []
+   },
+   {
+    "kind": "Switch",
+    "flag": "w",
+    "argname": null,
+    "desc": "Also kill water mobs",
+    "default": null,
+    "type": "boolean",
+    "param": "killWater",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "remove",
+  "aliases": [
+   "rem",
+   "rement"
+  ],
+  "desc": "Remove all entities of a type",
+  "perms": [
+   "worldedit.remove"
+  ],
+  "method": "remove",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The type of entity to remove",
+    "default": null,
+    "type": "EntityRemover",
+    "param": "remover",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The radius of the cuboid to remove from",
+    "default": null,
+    "type": "int",
+    "param": "radius",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "/calculate",
+  "aliases": [
+   "/calc",
+   "/eval",
+   "/evaluate",
+   "/solve"
+  ],
+  "desc": "Evaluate a mathematical expression",
+  "perms": [
+   "worldedit.calc"
+  ],
+  "method": "calc",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "Expression to evaluate",
+    "default": null,
+    "type": "List<String>",
+    "param": "input",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "UtilityCommands",
+  "name": "/help",
+  "aliases": [],
+  "desc": "Displays help for WorldEdit commands",
+  "perms": [
+   "worldedit.help"
+  ],
+  "method": "help",
+  "args": [
+   {
+    "kind": "Switch",
+    "flag": "s",
+    "argname": null,
+    "desc": "List sub-commands of the given command, if applicable",
+    "default": null,
+    "type": "boolean",
+    "param": "listSubCommands",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "p",
+    "argname": null,
+    "desc": "The page to retrieve",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "page",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The command to retrieve help for",
+    "default": [
+     ""
+    ],
+    "type": "List<String>",
+    "param": "command",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "WorldEditCommands",
+  "name": "version",
+  "aliases": [
+   "ver"
+  ],
+  "desc": "Get WorldEdit version",
+  "perms": [],
+  "method": "version",
+  "args": []
+ },
+ {
+  "file": "WorldEditCommands",
+  "name": "reload",
+  "aliases": [],
+  "desc": "Reload configuration",
+  "perms": [
+   "worldedit.reload"
+  ],
+  "method": "reload",
+  "args": []
+ },
+ {
+  "file": "WorldEditCommands",
+  "name": "report",
+  "aliases": [],
+  "desc": "Writes a report on WorldEdit",
+  "perms": [
+   "worldedit.report"
+  ],
+  "method": "report",
+  "args": [
+   {
+    "kind": "Switch",
+    "flag": "p",
+    "argname": null,
+    "desc": "Pastebins the report",
+    "default": null,
+    "type": "boolean",
+    "param": "pastebin",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "WorldEditCommands",
+  "name": "trace",
+  "aliases": [],
+  "desc": "Toggles trace hook",
+  "perms": [],
+  "method": "trace",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The mode to set the trace hook to",
+    "default": [
+     ""
+    ],
+    "type": "HookMode",
+    "param": "hookMode",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "WorldEditCommands",
+  "name": "cui",
+  "aliases": [],
+  "desc": "Complete CUI handshake (internal usage)",
+  "perms": [],
+  "method": "cui",
+  "args": []
+ },
+ {
+  "file": "WorldEditCommands",
+  "name": "tz",
+  "aliases": [],
+  "desc": "Set your timezone for snapshots",
+  "perms": [],
+  "method": "tz",
+  "args": [
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The timezone to set",
+    "default": null,
+    "type": "String",
+    "param": "timezone",
+    "mods": []
+   }
+  ]
+ },
+ {
+  "file": "WorldEditCommands",
+  "name": "help",
+  "aliases": [],
+  "desc": "Displays help for WorldEdit commands",
+  "perms": [
+   "worldedit.help"
+  ],
+  "method": "help",
+  "args": [
+   {
+    "kind": "Switch",
+    "flag": "s",
+    "argname": null,
+    "desc": "List sub-commands of the given command, if applicable",
+    "default": null,
+    "type": "boolean",
+    "param": "listSubCommands",
+    "mods": []
+   },
+   {
+    "kind": "ArgFlag",
+    "flag": "p",
+    "argname": null,
+    "desc": "The page to retrieve",
+    "default": [
+     "1"
+    ],
+    "type": "int",
+    "param": "page",
+    "mods": []
+   },
+   {
+    "kind": "Arg",
+    "flag": null,
+    "argname": null,
+    "desc": "The command to retrieve help for",
+    "default": [
+     ""
+    ],
+    "type": "List<String>",
+    "param": "command",
+    "mods": []
+   }
+  ]
+ }
+]

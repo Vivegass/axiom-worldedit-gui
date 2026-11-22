@@ -1,0 +1,350 @@
+
+## ApplyBrushCommands
+forest <type:TreeType>  -- Plant trees
+item <item:BaseItem> [direction:Direction=up]  -- Use an item
+set <pattern:Pattern>  -- Place a block
+
+## BiomeCommands
+biomelist (biomels) -p <int>  -- Gets all biomes available.
+    -p: Page number.
+biomeinfo -t -p  -- Get the biome of the targeted block.
+    -t: Use the block you are looking at.
+    -p: Use the block you are currently in.
+/setbiome <target:BiomeType> -p  -- Sets the biome of your current block or region.
+    -p: Use your current position
+/replacebiome <from:Mask> <target:BiomeType> -p  -- Replaces the biome of your current block or region.
+    -p: Use your current position
+
+## BrushCommands
+none (unbind)   -- Unbind a bound brush from your current item
+sphere (s) <pattern:Pattern> [radius:double=2] -h  -- Choose the sphere brush
+    -h: Create hollow spheres instead
+cylinder (cyl,c) <pattern:Pattern> [radius:double=2] [height:int=1] -h  -- Choose the cylinder brush
+    -h: Create hollow cylinders instead
+splatter (splat) <pattern:Pattern> [radius:double=2] [decay:int=1]  -- Choose the splatter brush
+clipboard (copy) -a -v -o -e -b -m <Mask>  -- Choose the clipboard brush
+    -a: Don't paste air from the clipboard
+    -v: Include structure void blocks
+    -o: Paste starting at the target location, instead of centering on it
+    -e: Paste entities if available
+    -b: Paste biomes if available
+    -m: Skip blocks matching this mask in the clipboard
+smooth [radius:double=2] [iterations:int=4] [mask:Mask=]  -- Choose the terrain softener brush
+snowsmooth [radius:double=2] [iterations:int=4] -l <int> -m <Mask>  -- Choose the snow terrain softener brush
+    -l: The number of snow blocks under snow
+    -m: The mask of blocks to use for the heightmap
+extinguish (ex) [radius:double=5]  -- Shortcut fire extinguisher brush
+gravity (grav) [radius:double=5] -h <Integer>  -- Gravity brush, simulates the effect of gravity
+    -h: Affect blocks between the given height, upwards and downwards, rather than the target location Y + radius
+butcher (kill) [radius:double=5] -p -n -g -a -b -t -f -r -w  -- Butcher brush, kills mobs within a radius
+    -p: Also kill pets
+    -n: Also kill NPCs
+    -g: Also kill golems
+    -a: Also kill animals
+    -b: Also kill ambient mobs
+    -t: Also kill mobs with name tags
+    -f: Also kill all friendly mobs (Applies the flags `-abgnpt`)
+    -r: Also destroy armor stands
+    -w: Also kill water mobs
+heightmap <imageName:String> [radius:double=5] [intensity:double=5] -e -f -r  -- Heightmap brush, raises or lowers terrain using an image heightmap
+    -e: Erase blocks instead of filling them
+    -f: Don't change blocks above the selected height
+    -r: Randomizes the brush's height slightly.
+deform <shape:RegionFactory> [radius:double=5] [expression:String=y-=0.2] -r -o  -- Deform brush, applies an expression to an area
+    -r: Use the game's coordinate origin
+    -o: Use the placement position as the origin
+set <shape:RegionFactory> [radius:double=5] <pattern:Pattern>  -- Set brush, sets all blocks in the area
+forest <shape:RegionFactory> [radius:double=5] [density:double=20] <type:TreeType>  -- Forest brush, creates a forest in the area
+feature <shape:RegionFactory> [radius:double=5] [density:double=5] <type:ConfiguredFeatureType>  -- Feature brush, paints Minecraft generation features
+raise <shape:RegionFactory> [radius:double=5]  -- Raise brush, raise all blocks by one
+lower <shape:RegionFactory> [radius:double=5]  -- Lower brush, lower all blocks by one
+snow <shape:RegionFactory> [radius:double=5] -s  -- Snow brush, sets snow in the area
+    -s: Whether to stack snow
+biome <shape:RegionFactory> [radius:double=5] <biomeType:BiomeType> -c  -- Biome brush, sets biomes in the area
+    -c: Whether to set the full column
+morph [brushSize:double=5] [minErodeFaces:int=3] [numErodeIterations:int=1] [minDilateFaces:int=3] [numDilateIterations:int=1]  -- Morph brush, morphs blocks in the area
+erode [brushSize:double=5]  -- Erode preset for morph brush, erodes blocks in the area
+dilate [brushSize:double=5]  -- Dilate preset for morph brush, dilates blocks in the area
+
+## ChunkCommands
+chunkinfo   -- Get information about the chunk you're inside
+listchunks -p <int>  -- List chunks that your selection includes
+    -p: Page number.
+delchunks -o <ZonedDateTime>  -- Delete chunks that your selection includes
+    -o: Only delete chunks older than the specified time.
+
+## ClipboardCommands
+/copy -e -b -m <Mask>  -- Copy the selection to the clipboard
+    -e: Also copy entities
+    -b: Also copy biomes
+    -m: Set the include mask, non-matching blocks become air
+/cut [leavePattern:Pattern=air] -e -b -m <Mask>  -- Cut the selection to the clipboard
+    -e: Also cut entities
+    -b: Also copy biomes, source biomes are unaffected
+    -m: Set the exclude mask, non-matching blocks become air
+/paste -a -v -o -s -n -e -b -m <Mask>  -- Paste the clipboard's contents
+    -a: Skip air blocks
+    -v: Include structure void blocks
+    -o: Paste at the original position
+    -s: Select the region after pasting
+    -n: No paste, select only. (Implies -s)
+    -e: Paste entities if available
+    -b: Paste biomes if available
+    -m: Only paste blocks matching this mask
+/rotate <rotateY:double> [rotateX:double=0] [rotateZ:double=0]  -- Rotate the contents of the clipboard
+/flip (/mirror) [direction:BlockVector3=me]  -- Flip the contents of the clipboard across the origin
+clearclipboard   -- Clear your clipboard
+/revolve <pasteCount:int> -m <Mask> -r -e -b  -- Revolve the selection around a vertical axis
+    -m: Set the source mask, non-matching blocks are not revolved
+    -r: Perform revolutions in reverse (counter-clockwise)
+    -e: Copy entities
+    -b: Copy biomes
+
+## ExpandCommands
+/expand <amount:int> [reverseAmount:int=0] [direction:List<BlockVector3>=me]  -- Expand the selection area
+
+## GeneralCommands
+/limit [limit:Integer=]  -- Modify block change limit
+/timeout [limit:Integer=]  -- Modify evaluation timeout time.
+/fast [fastMode:Boolean=]  -- Toggle fast mode
+/perf [sideEffect:SideEffect=] [newState:State=] -h  -- Toggle side effects for performance
+    -h: Show the info box
+/reorder [reorderMode:ReorderMode=]  -- Sets the reorder mode of WorldEdit
+/drawsel [drawSelection:Boolean=]  -- Toggle drawing the current selection
+/world [world:World=]  -- Sets the world override
+/watchdog [hookMode:HookMode=]  -- Changes watchdog hook state.
+gmask (/gmask) [mask:Mask=]  -- Set the global mask
+toggleplace (/toggleplace)   -- Switch between your position and pos1 for placement
+placement (/placement) <placementType:PlacementType> [multiplier:int=1] [offset:BlockVector3=0,0,0]  -- Select which placement to use
+searchitem (/searchitem,/l,/search) -b -i -p <int> <query:List<String>>  -- Search for an item
+    -b: Only search for blocks
+    -i: Only search for items
+    -p: Page of results to return
+/registry <registry:Registry<?>> -p <int> [queryBits:List<String>=*]  -- Search through the given registry
+    -p: Page of results to return
+
+## GenerationCommands
+/hcyl <pattern:Pattern> <radii:List<Double>> [height:int=1]  -- Generates a hollow cylinder.
+/cyl <pattern:Pattern> <radii:List<Double>> [height:int=1] -h  -- Generates a cylinder.
+    -h: Make a hollow cylinder
+/cone <pattern:Pattern> <radii:List<Double>> [height:int=1] -h [thickness:double=1]  -- Generates a cone.
+    -h: Make a hollow cone
+/hsphere <pattern:Pattern> <radii:List<Double>> -r  -- Generates a hollow sphere.
+    -r: Raise the bottom of the sphere to the placement position
+/sphere <pattern:Pattern> <radii:List<Double>> -r -h  -- Generates a filled sphere.
+    -r: Raise the bottom of the sphere to the placement position
+    -h: Make a hollow sphere
+forestgen [size:int=10] [type:TreeType=tree] [density:double=5]  -- Generate a forest
+pumpkins [size:int=10]  -- Generate pumpkin patches
+/feature <feature:ConfiguredFeatureType>  -- Generate Minecraft features
+/structure <feature:StructureType>  -- Generate Minecraft structures
+/hpyramid <pattern:Pattern> <size:int>  -- Generate a hollow pyramid
+/pyramid <pattern:Pattern> <size:int> -h  -- Generate a filled pyramid
+    -h: Make a hollow pyramid
+/generate (/gen,/g) <pattern:Pattern> <expression:List<String>> -h -r -o -c  -- Generates a shape according to a formula.
+    -h: Generate a hollow shape
+    -r: Use the game's coordinate origin
+    -o: Use the placement's coordinate origin
+    -c: Use the selection's center as origin
+/generatebiome (/genbiome,/gb) <target:BiomeType> <expression:List<String>> -h -r -o -c  -- Sets biome according to a formula.
+    -h: Generate a hollow shape
+    -r: Use the game's coordinate origin
+    -o: Use the placement's coordinate origin
+    -c: Use the selection's center as origin
+
+## HistoryCommands
+undo (/undo) [times:int=1] [player:String=]  -- Undoes the last action (from history)
+redo (/redo) [times:int=1] [player:String=]  -- Redoes the last action (from history)
+clearhistory (/clearhistory)   -- Clear your history
+
+## NavigationCommands
+unstuck (!)   -- Escape from being stuck inside a block
+ascend (asc) [levels:int=1]  -- Go up a floor
+descend (desc) [levels:int=1]  -- Go down a floor
+ceil [clearance:int=0] -f -g  -- Go to the ceiling
+    -f: Force using flight to keep you still
+    -g: Force using glass to keep you still
+thru   -- Pass through walls
+jumpto (j)   -- Teleport to a location
+up <distance:int> -f -g  -- Go upwards some distance
+    -f: Force using flight to keep you still
+    -g: Force using glass to keep you still
+
+## PaintBrushCommands
+forest <type:TreeType>  -- Plant trees
+item <item:BaseItem> [direction:Direction=up]  -- Use an item
+set <pattern:Pattern>  -- Place a block
+
+## RegionCommands
+/set <pattern:Pattern>  -- Sets all the blocks in the region
+/line <pattern:Pattern> [thickness:double=0] -h  -- Draws line segments between cuboid selection corners or convex polyhedral selection vertices
+    -h: Generate only a shell
+/curve <pattern:Pattern> [thickness:double=0] -h  -- Draws a spline through selected points
+    -h: Generate only a shell
+/replace (/re,/rep) [from:Mask=] <to:Pattern>  -- Replace all blocks in the selection with another
+/overlay <pattern:Pattern>  -- Set a block on top of blocks in the region
+/center (/middle) <pattern:Pattern>  -- Set the center block(s)
+/naturalize   -- 3 layers of dirt on top then rock below
+/walls <pattern:Pattern>  -- Build the four sides of the selection
+/faces (/outline) <pattern:Pattern>  -- Build the walls, ceiling, and floor of a selection
+/smooth [iterations:int=1] [mask:Mask=]  -- Smooth the elevation in the selection
+/snowsmooth [iterations:int=1] -l <int> -m <Mask>  -- Smooth the elevation in the selection with snow layers
+    -l: Set the amount of snow blocks under the snow
+    -m: The mask of blocks to use as the height map
+/move [multiplier:int=1] [offset:BlockVector3=forward] [replace:Pattern=air] -s -a -e -b -m <Mask>  -- Move the contents of the selection
+    -s: Shift the selection to the target location
+    -a: Ignore air blocks
+    -e: Also copy entities
+    -b: Also copy biomes
+    -m: Set the include mask, non-matching blocks become air
+/stack [count:int=1] [offset:BlockVector3=forward] -s -a -e -b -r -m <Mask>  -- Repeat the contents of the selection
+    -s: Shift the selection to the last stacked copy
+    -a: Ignore air blocks
+    -e: Also copy entities
+    -b: Also copy biomes
+    -r: Use block units
+    -m: Set the include mask, non-matching blocks become air
+/regen [seed:Long=] -b -c  -- Regenerates the contents of the selection
+    -b: Regenerate biomes as well
+    -c: Regenerate to the clipboard
+/deform <expression:List<String>> -r -o -c -l  -- Deforms a selected region with an expression
+    -r: Use the game's coordinate origin
+    -o: Use the placement's coordinate origin
+    -c: Use the selection's center as origin
+    -l: Fetch from the clipboard instead of the world
+/hollow [thickness:int=0] [pattern:Pattern=air]  -- Hollows out the object contained in this selection
+/forest [type:TreeType=tree] [density:double=5]  -- Make a forest within the region
+/flora [density:double=5]  -- Make flora within the region
+/update [sideEffectSet:SideEffectSet=]  -- Apply side effects to your selection
+
+## SchematicCommands
+load <schematic:Path> [format:ClipboardFormat=sponge]  -- Load a schematic into your clipboard
+save <filename:String> [format:ClipboardFormat=sponge] -f  -- Save your clipboard into a schematic file
+    -f: Overwrite an existing file.
+share [schematicName:String=] [destination:ClipboardShareDestination=ehpaste] [format:ClipboardFormat=]  -- Share your clipboard as a schematic online
+delete (d) <schematic:Path>  -- Delete a saved schematic
+formats (listformats,f)   -- List available formats
+list (all,ls) -p <int> -d -n  -- List saved schematics
+    -p: Page to view.
+    -d: Sort by date, oldest first
+    -n: Sort by date, newest first
+
+## ScriptingCommands
+cs <filename:String> [args:List<String>=]  -- Execute a CraftScript
+.s [args:List<String>=]  -- Execute last CraftScript
+
+## SelectionCommands
+/pos [pos1:BlockVector3=] [pos2:List<BlockVector3>=] -s <SelectorChoice>  -- Set positions
+    -s: Selector to switch to
+/pos1 [coordinates:BlockVector3=]  -- Set position 1
+/pos2 [coordinates:BlockVector3=]  -- Set position 2
+/hpos1   -- Set position 1 to targeted block
+/hpos2   -- Set position 2 to targeted block
+/chunk [coordinates:BlockVector3=] -s -c  -- Set the selection to your current chunk.
+    -s: Expand your selection to encompass all chunks that are part of it
+    -c: Use chunk coordinates instead of block coordinates
+/wand -n  -- Get the wand item
+    -n: Get a navigation wand
+toggleeditwand   -- Remind the user that the wand is now a tool and can be unbound with /tool none.
+/contract <amount:int> [reverseAmount:int=0] [direction:List<BlockVector3>=me]  -- Contract the selection area
+/shift <amount:int> [direction:List<BlockVector3>=me]  -- Shift the selection area
+/outset <amount:int> -h -v  -- Outset the selection area
+    -h: Only expand horizontally
+    -v: Only expand vertically
+/inset <amount:int> -h -v  -- Inset the selection area
+    -h: Only contract horizontally
+    -v: Only contract vertically
+/trim [mask:Mask=#existing]  -- Minimize the selection to encompass matching blocks
+/size -c  -- Get information about the selection
+    -c: Get clipboard info instead
+/count <mask:Mask>  -- Counts the number of blocks matching a mask
+/distr -c -d -p <Integer> -m <Mask>  -- Get the distribution of blocks in the selection
+    -c: Get the distribution of the clipboard instead
+    -d: Separate blocks by state
+    -p: Gets page from a previous distribution.
+    -m: Only include blocks matching the given mask
+/sel (;,/desel,/deselect) [selectorChoiceOrList:SelectorChoiceOrList=] -d  -- Choose a region selector
+    -d: Set default selector
+
+## SnapshotCommands
+list -p <int>  -- List snapshots
+    -p: Page of results to return
+use <name:String>  -- Choose a snapshot to use
+sel <index:int>  -- Choose the snapshot based on the list id
+before <date:ZonedDateTime>  -- Choose the first snapshot that occurred before the given date
+after <date:ZonedDateTime>  -- Choose the first snapshot that occurred after the given date
+
+## SnapshotUtilCommands
+restore (/restore) [snapshot:String=]  -- Restore the selection from a snapshot
+
+## SuperPickaxeCommands
+single   -- Enable the single block super pickaxe mode
+area <range:int>  -- Enable the area super pickaxe pickaxe mode
+recursive (recur) <range:double>  -- Enable the recursive super pickaxe pickaxe mode
+
+## ToolCommands
+none (unbind)   -- Unbind a bound tool from your current item
+selwand (/selwand)   -- Selection wand tool
+navwand (/navwand)   -- Navigation wand tool
+info   -- Block information tool
+tree [type:TreeType=tree]  -- Tree generator tool
+stacker [range:int=10] [mask:Mask=!#existing]  -- Block stacker tool
+repl <pattern:Pattern>  -- Block replacer tool
+cycler   -- Block data cycler tool
+floodfill (flood) <pattern:Pattern> <range:int>  -- Flood fill tool
+deltree   -- Floating tree remover tool
+farwand   -- Wand at a distance tool
+lrbuild (/lrbuild) <primary:Pattern> <secondary:Pattern>  -- Long-range building tool
+
+## ToolUtilCommands
+/ (,) [superPickaxe:Boolean=]  -- Toggle the super pickaxe function
+mask [mask:Mask=]  -- Set the brush mask
+material (/material) <pattern:Pattern>  -- Set the brush material
+range <range:int>  -- Set the brush range
+size <size:int>  -- Set the brush size
+tracemask [mask:Mask=]  -- Set the mask used to stop tool traces
+
+## UtilityCommands
+/fill <pattern:Pattern> <radius:double> [depth:int=1]  -- Fill a hole
+/fillr <pattern:Pattern> <radius:double> [depth:Integer=]  -- Fill a hole recursively
+/drain <radius:double> -w  -- Drain a pool
+    -w: Also un-waterlog blocks
+fixlava (/fixlava) <radius:double>  -- Fix lava to be stationary
+fixwater (/fixwater) <radius:double>  -- Fix water to be stationary
+removeabove (/removeabove) [size:int=1] [height:int=default-vertical-height]  -- Remove blocks above your head.
+removebelow (/removebelow) [size:int=1] [height:int=default-vertical-height]  -- Remove blocks below you.
+removenear (/removenear) <mask:Mask> [radius:int=50]  -- Remove blocks near you.
+replacenear (/replacenear) <radius:int> [from:Mask=] <to:Pattern>  -- Replace nearby blocks
+snow (/snow) [size:double=10] [height:int=default-vertical-height] -s  -- Simulates snow
+    -s: Stack snow layers
+thaw (/thaw) [size:double=10] [height:int=default-vertical-height]  -- Thaws the area
+green (/green) [size:double=10] [height:int=default-vertical-height] -f  -- Converts dirt to grass blocks in the area
+    -f: Also convert coarse dirt
+extinguish (/ex,/ext,/extinguish,ex,ext) [radius:Integer=]  -- Extinguish nearby fire
+butcher [radius:Integer=] -p -n -g -a -b -t -f -r -w  -- Kill all or nearby mobs
+    -p: Also kill pets
+    -n: Also kill NPCs
+    -g: Also kill golems
+    -a: Also kill animals
+    -b: Also kill ambient mobs
+    -t: Also kill mobs with name tags
+    -f: Also kill all friendly mobs (Applies the flags `-abgnpt`)
+    -r: Also destroy armor stands
+    -w: Also kill water mobs
+remove (rem,rement) <remover:EntityRemover> <radius:int>  -- Remove all entities of a type
+/calculate (/calc,/eval,/evaluate,/solve) <input:List<String>>  -- Evaluate a mathematical expression
+/help -s -p <int> [command:List<String>=]  -- Displays help for WorldEdit commands
+    -s: List sub-commands of the given command, if applicable
+    -p: The page to retrieve
+
+## WorldEditCommands
+version (ver)   -- Get WorldEdit version
+reload   -- Reload configuration
+report -p  -- Writes a report on WorldEdit
+    -p: Pastebins the report
+trace [hookMode:HookMode=]  -- Toggles trace hook
+cui   -- Complete CUI handshake (internal usage)
+tz <timezone:String>  -- Set your timezone for snapshots
+help -s -p <int> [command:List<String>=]  -- Displays help for WorldEdit commands
+    -s: List sub-commands of the given command, if applicable
+    -p: The page to retrieve

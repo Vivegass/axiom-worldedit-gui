@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "axiom_worldedit_gui",
+  "version": "0.2.0",
+  "name": "Axiom WorldEdit GUI",
+  "description": "Use WorldEdit from inside the Axiom editor: a WorldEdit menu, forms for every command, WorldEdit brushes as an Axiom tool, Axiom selections in WorldEdit, and one undo history (Ctrl+Z) for both. Singleplayer only.",
+  "license": "GPL-3.0-only",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["dev.axiomwegui.AxiomWorldEditGui"]
+  },
+  "mixins": ["axiom_worldedit_gui.mixins.json", "axiom_worldedit_gui.compat.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.16",
+    "minecraft": ">26.2 <26.4",
+    "axiom": ">=6.1.5 <6.2",
+    "worldedit": ">=7.4.6 <7.5"
+  },
+  "suggests": {
+    "worldeditcui": "*"
+  }
+}
