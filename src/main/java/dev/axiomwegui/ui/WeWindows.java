@@ -15,6 +15,7 @@ public final class WeWindows {
     public static final String OPERATIONS = "operations";
     public static final String CONSOLE = "console";
     public static final String COMMANDS = "commands";
+    public static final String BRUSHES = "brushes";
 
     private static MinecraftServer lastServer = null;
 
@@ -44,6 +45,11 @@ public final class WeWindows {
         safely(OPERATIONS, OperationsWindow::render);
         safely(CONSOLE, ConsoleWindow::render);
         safely(COMMANDS, CommandBrowserWindow::render);
+        if (GuiConfig.introduceBrushesWindow()) {
+            // New in this version: show the brushes window once; after that it stays as the player leaves it.
+            setOpen(BRUSHES, true);
+        }
+        safely(BRUSHES, BrushesWindow::render);
     }
 
     private static void safely(String id, Runnable window) {

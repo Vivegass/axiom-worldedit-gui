@@ -1,9 +1,11 @@
-# Axiom WorldEdit GUI
+# Axiom: WorldEdit Tools
 
 A client-side Fabric addon that brings WorldEdit into the [Axiom](https://axiom.moulberry.com/) editor.
-Every WorldEdit command gets a form, WorldEdit brushes become an Axiom tool, Axiom selections of any
-shape work with WorldEdit, and both mods share one undo history, so Ctrl+Z in Axiom also undoes
-WorldEdit edits.
+Every WorldEdit command gets a form, WorldEdit's brushes get their own tool tab next to Axiom's tools,
+Axiom selections of any shape work with WorldEdit, and both mods share one undo history, so Ctrl+Z in
+Axiom also undoes WorldEdit edits.
+
+*Unofficial: not affiliated with or endorsed by Moulberry, the Axiom project or EngineHub.*
 
 **Singleplayer only.** The addon calls WorldEdit on the integrated server. On multiplayer servers the
 menu says that it is unavailable.
@@ -19,8 +21,12 @@ Everything is in the **WorldEdit** menu at the end of Axiom's menu bar.
     //center, //revolve
   - world generation: //regen, //feature, //structure, biomes
   - mobs and entities, session settings (//gmask, //perf, //limit, //timeout)
-- Pattern fields are checked by WorldEdit's own parser while you type. *Active block* inserts Axiom's
-  active block, and *Mix…* edits the pattern as a list of blocks with weights (`30%stone,70%andesite`).
+- Pattern fields are checked by WorldEdit's own parser while you type. A pattern that is a mix of blocks
+  is also shown as Axiom's block list (the one from the Noise Painter): a block icon and a percentage per
+  row. Drag blocks onto it from the hotbar, Inventory, Active Block or the Palette; *Active block* adds
+  Axiom's active block. Patterns that are more than a block list (tags, `#clipboard`…) stay text.
+- Arguments with a fixed set of values (tree types, shapes, biomes, items, directions…) are dropdowns
+  with search; the values come from WorldEdit and Minecraft. Sizes, densities and iterations are sliders.
 - Mask fields have *From Axiom*: it turns the mask from Axiom's Tool Masks window into WorldEdit
   syntax (`below = grass_block` → `>grass_block`, `biome = plains` → `$plains`, `y > 64` → `=y>64`).
 - Selection shapes: turn the selection box into an ellipsoid, cylinder or sphere (WorldEdit builds the
@@ -38,11 +44,17 @@ WorldEdit's answers to the commands sent from the addon, including the late answ
 finish in the background (//distr, //count, //schem load). There is a line for typing any command, and
 buttons for WorldEdit's own undo and redo.
 
-### WorldEdit brush tool
-A new tool in Axiom's Tools window. Pick any of WorldEdit's brushes (sphere, cylinder, smooth, gravity,
-deform, forest, feature, butcher, snow, biome, erode, dilate, apply and paint…), fill in its settings and press
-*Use this brush*. Then paint with the right mouse button at the block under the cursor. An optional
-WorldEdit mask limits which blocks change. One stroke is one step in the undo history.
+### WorldEdit brushes
+The **WorldEdit** tab (WorldEdit → Brushes; dock it next to Axiom's Tools) shows all of WorldEdit's
+brushes as tool buttons, grouped into shapes, terrain, nature and other. Brushes that do what an Axiom
+tool does wear that tool's icon with a "WE" mark.
+
+- Pick a brush and paint with the right mouse button, the same way as Axiom's brushes: hold to paint,
+  Ctrl + middle mouse drag changes the radius, and the brush shape is previewed under the cursor.
+- Settings are in Tool Options and apply by themselves. A new brush starts with Axiom's active block.
+  Shape and radius carry over when you switch brushes (can be turned off).
+- forest, set and item work plain, as *Apply* (every block of a shape) or as *Paint* (scattered).
+- An optional WorldEdit mask limits which blocks change. One stroke is one step in the undo history.
 
 ### Selection
 - Axiom's selection is what WorldEdit commands work on: boxes become WorldEdit cuboids, and free-shape
@@ -54,10 +66,11 @@ WorldEdit mask limits which blocks change. One stroke is one step in the undo hi
 
 ### One undo history
 WorldEdit edits are written into Axiom's history: Ctrl+Z, Ctrl+Y and Axiom's History window undo and
-redo them in order with Axiom's own edits, including chests and other block entities. This works for
-commands from the addon, commands typed in chat and brush strokes. Edits that change entities or
-biomes stay in WorldEdit's history; the console marks them, and *WorldEdit undo* undoes them. The menu
-item *Undo WorldEdit edits with Ctrl+Z* turns the shared history off.
+redo them in order with Axiom's own edits, including chests and other block entities, biome changes and
+the blocks Minecraft reshapes next to an edit (grass under new snow, fences that connect). This works
+for commands from the addon, commands typed in chat and brush strokes. Edits that change entities stay
+in WorldEdit's history; the console marks them, and *WorldEdit undo* undoes them. The menu item
+*Undo WorldEdit edits with Ctrl+Z* turns the shared history off.
 
 ## Requirements
 
@@ -77,11 +90,11 @@ Minecraft 26.3 is not obfuscated, so the addon builds with plain `javac` against
 Prism Launcher already has. No Gradle or Loom is needed.
 
 ```sh
-./build.sh            # builds build/axiom-worldedit-gui-<version>.jar
+./build.sh            # builds build/axiom-worldedit-tools-<version>+mc<minecraft>.jar
 ./build.sh --install  # also replaces the addon in the instance's mods folder
 ```
 
-The script reads these variables, with defaults for the `PWGood__26.3` Prism instance:
+Version, author and links are in `mod.properties`. The script reads these variables, with defaults for the `PWGood__26.3` Prism instance:
 `JDK`, `PRISM`, `MODS`, `AXIOM`, `WORLDEDIT`, `FABRIC_API`.
 
 ## How it works
@@ -93,7 +106,8 @@ The script reads these variables, with defaults for the `PWGood__26.3` Prism ins
 | Running commands | `we/DirectBackend`, `mixin/CoreMcPlayerMixin` | runs commands on the integrated server and collects WorldEdit's messages |
 | Selection | `selection/`, `mixin/PlatformCommandManagerMixin`, `mixin/WorldEditMixin` | Axiom → WorldEdit before each command, WorldEdit → Axiom after it |
 | Undo history | `journal/`, `mixin/LocalSessionMixin` | turns WorldEdit's change set into an Axiom history entry |
-| Brushes | `brush/`, `mixin/ToolManagerMixin` | captures the brush a //brush command builds and paints with it |
+| Brushes | `brush/`, `ui/BrushesWindow`, `mixin/ToolManagerMixin` | captures the brush a //brush command builds and paints with it |
+| Brush icons | `ui/VectorIcon`, `assets/.../icons/*.svg` | one-colour SVG icons drawn with ImGui lines |
 | Clipboard and files | `we/ClipboardBridge`, `ui/FilesPanel` | moves clipboards between the mods, lists schematics and scripts |
 
 ## Known limits
@@ -101,7 +115,8 @@ The script reads these variables, with defaults for the `PWGood__26.3` Prism ins
 - Singleplayer only, and not while the world is open to LAN.
 - Free-shape Axiom selections cannot be expanded or contracted by WorldEdit (//expand, //contract);
   turn them into a box first.
-- Edits that change entities or biomes are undone with *WorldEdit undo*, not Ctrl+Z.
+- Edits that change entities are undone with *WorldEdit undo*, not Ctrl+Z. An edit that changes both
+  blocks and biomes is two steps in Axiom's history.
 - The addon relies on Axiom internals (menu bar, editor frame, history, tool list) and is built for
   Axiom 6.1.x.
 

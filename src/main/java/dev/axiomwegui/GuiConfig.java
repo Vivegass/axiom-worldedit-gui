@@ -29,6 +29,8 @@ public final class GuiConfig {
         Set<String> openWindows = new LinkedHashSet<>();
         boolean journal = true;
         boolean hideCuiInEditor = true;
+        boolean brushCarryOver = true;
+        boolean brushesWindowIntroduced = false;
         int consoleLines = 200;
     }
 
@@ -82,6 +84,28 @@ public final class GuiConfig {
             data.hideCuiInEditor = hide;
             save();
         }
+    }
+
+    /** Whether switching brushes keeps the shape and radius of the previous brush. */
+    public static boolean isBrushCarryOver() {
+        return data.brushCarryOver;
+    }
+
+    public static void setBrushCarryOver(boolean carry) {
+        if (data.brushCarryOver != carry) {
+            data.brushCarryOver = carry;
+            save();
+        }
+    }
+
+    /** True exactly once: the first time the brushes window exists, so it can be opened for the player. */
+    public static boolean introduceBrushesWindow() {
+        if (data.brushesWindowIntroduced) {
+            return false;
+        }
+        data.brushesWindowIntroduced = true;
+        save();
+        return true;
     }
 
     public static int consoleLines() {

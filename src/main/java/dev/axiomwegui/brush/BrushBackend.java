@@ -5,16 +5,21 @@ import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.command.tool.BrushTool;
+import com.sk89q.worldedit.coremc.internal.CoreMcWorld;
 import com.sk89q.worldedit.entity.Player;
 import com.sk89q.worldedit.extension.input.InputParseException;
 import com.sk89q.worldedit.extension.input.ParserContext;
 import com.sk89q.worldedit.fabric.FabricAdapter;
 import com.sk89q.worldedit.function.mask.Mask;
 import com.sk89q.worldedit.function.mask.MaskIntersection;
+import com.sk89q.worldedit.history.change.BlockChange;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.util.formatting.WorldEditText;
 import dev.axiomwegui.AxiomWorldEditGui;
 import dev.axiomwegui.Tr;
+import dev.axiomwegui.journal.WorldCapture;
+import it.unimi.dsi.fastutil.longs.Long2ObjectLinkedOpenHashMap;
+import java.util.List;
 import dev.axiomwegui.we.CommandContext;
 import dev.axiomwegui.we.DirectBackend;
 import dev.axiomwegui.we.WeResult;
@@ -23,7 +28,9 @@ import java.util.concurrent.CompletableFuture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * WorldEdit brushes for the Axiom brush tool. A brush is set up by running WorldEdit's own
@@ -38,6 +45,10 @@ public final class BrushBackend {
 
     // Server thread only.
     private static BrushTool tool = null;
+    /** Whether the //brush command now running produced a new brush (it may fail before that). */
+    private static boolean capturedThisRun = false;
+    /** The brush uses an item on the world (//brush apply|paint ... item): its changes are captured. */
+    private static boolean usesItems = false;
     private static String toolDescription = null;
     private static EditSession stroke = null;
     private static LocalSession strokeSession = null;
@@ -55,6 +66,7 @@ public final class BrushBackend {
     /** Called from the forceBrush hook on the server thread. */
     public static void captured(BrushTool brushTool) {
         tool = brushTool;
+        capturedThisRun = true;
     }
 
     public static String summary() {
@@ -70,6 +82,7 @@ public final class BrushBackend {
             @Override
             public void before(Player actor, LocalSession session) {
                 endStroke(session);
+                capturedThisRun = false;
                 CAPTURING.set(true);
             }
 
@@ -78,10 +91,15 @@ public final class BrushBackend {
                 CAPTURING.set(false);
                 // WorldEdit's hint about unbinding a held item does not apply to the Axiom tool.
                 result.lines().removeIf(l -> l.text().contains("unbind"));
-                if (tool == null) {
+                if (tool == null || !capturedThisRun) {
+                    // The command failed; the previous brush stays as it was.
                     return;
                 }
                 toolDescription = commandLine;
+                usesItems = List.of(commandLine.trim().split("\\s+")).contains("item");
+                // Some brushes come with a mask of their own (extinguish only touches fire); the player's mask
+                // narrows it further instead of replacing it.
+                Mask own = tool.getMask();
                 if (maskInput != null && !maskInput.isBlank()) {
                     try {
                         ParserContext context = new ParserContext();
@@ -90,13 +108,12 @@ public final class BrushBackend {
                         context.setExtent(actor.getWorld());
                         context.setSession(session);
                         context.setRestricted(true);
-                        tool.setMask(WorldEdit.getInstance().getMaskFactory().parseFromInput(maskInput, context));
+                        Mask player = WorldEdit.getInstance().getMaskFactory().parseFromInput(maskInput, context);
+                        tool.setMask(own == null ? player : new MaskIntersection(own, player));
                     } catch (InputParseException e) {
                         result.lines().add(new WeResult.Line(
                             Tr.t("brush.bad_mask", WorldEditText.reduceToText(e.getRichMessage(), actor.getLocale())), true));
                     }
-                } else {
-                    tool.setMask(null);
                 }
                 String text = commandLine + (maskInput == null || maskInput.isBlank() ? "" : "  mask " + maskInput);
                 summary = text;
@@ -119,14 +136,40 @@ public final class BrushBackend {
                     stroke.setMask(existing == null ? mask : new MaskIntersection(existing, mask));
                 }
             }
+            ServerLevel level = usesItems && actor.getWorld() instanceof CoreMcWorld world ? world.getWorld() : null;
+            if (level != null) {
+                WorldCapture.begin(level);
+            }
             try {
                 tool.getBrush().build(stroke, BlockVector3.at(target.getX(), target.getY(), target.getZ()),
                     tool.getMaterial(), tool.getSize());
                 stroke.flushSession();
             } catch (MaxChangedBlocksException e) {
                 AxiomWorldEditGui.LOGGER.info("Brush stroke hit WorldEdit's block change limit");
+            } finally {
+                if (level != null) {
+                    addToEdit(stroke, level, WorldCapture.end());
+                }
             }
         });
+    }
+
+    /**
+     * The item brush (and apply/paint with an item) uses the item on the world itself, so whatever grows
+     * from it is not in WorldEdit's edit. The blocks that changed are added to the stroke's edit here, so
+     * they become part of the undo entry.
+     */
+    private static void addToEdit(EditSession edit, ServerLevel level, Long2ObjectLinkedOpenHashMap<BlockState> before) {
+        FabricAdapter adapter = FabricAdapter.get();
+        for (Long2ObjectLinkedOpenHashMap.Entry<BlockState> entry : before.long2ObjectEntrySet()) {
+            BlockPos pos = BlockPos.of(entry.getLongKey());
+            BlockState old = entry.getValue();
+            BlockState now = level.getBlockState(pos);
+            if (!old.equals(now)) {
+                edit.getChangeSet().add(new BlockChange(BlockVector3.at(pos.getX(), pos.getY(), pos.getZ()),
+                    adapter.fromNativeBlockState(old).toBaseBlock(), adapter.fromNativeBlockState(now).toBaseBlock()));
+            }
+        }
     }
 
     /** Client thread: the mouse was released; the stroke becomes one undo entry. */

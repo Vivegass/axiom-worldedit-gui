@@ -95,7 +95,8 @@ public final class WeSchema {
                     takesValue ? qualifier((ArgAcceptingCommandPart) part) : "",
                     takesValue ? List.copyOf(((ArgAcceptingCommandPart) part).getDefaults()) : List.of(),
                     false, false,
-                    text(part.getDescription(), locale)));
+                    text(part.getDescription(), locale),
+                    takesValue ? key((ArgAcceptingCommandPart) part) : null));
             } else if (part instanceof CommandArgument arg) {
                 params.add(new WeParam(
                     WeParam.Kind.ARGUMENT,
@@ -105,7 +106,8 @@ public final class WeSchema {
                     List.copyOf(arg.getDefaults()),
                     arg.isRequired(),
                     arg.isVariable(),
-                    text(arg.getDescription(), locale)));
+                    text(arg.getDescription(), locale),
+                    key(arg)));
             }
         }
         children.sort(Comparator.comparing(WeCommand::path));
@@ -119,6 +121,13 @@ public final class WeSchema {
             return key.getTypeToken().getType().getTypeName().replaceAll("\\b[a-z0-9_]+\\.", "");
         }
         return "?";
+    }
+
+    private static Key<?> key(ArgAcceptingCommandPart part) {
+        for (Key<?> key : part.getTypes()) {
+            return key;
+        }
+        return null;
     }
 
     private static String qualifier(ArgAcceptingCommandPart part) {

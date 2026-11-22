@@ -13,8 +13,10 @@ import java.util.List;
  * @param required    whether the command fails without it
  * @param variable    whether it eats the rest of the line (lists, expressions)
  * @param description help text from WorldEdit
+ * @param key         WorldEdit's key for the value type, used to list its values; null for switches
  */
 public record WeParam(Kind kind, String name, String type, String qualifier, List<String> defaults,
-                      boolean required, boolean variable, String description) {
+                      boolean required, boolean variable, String description,
+                      org.enginehub.piston.inject.Key<?> key) {
     public enum Kind { ARGUMENT, SWITCH, VALUE_FLAG }
 }

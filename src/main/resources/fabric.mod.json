@@ -1,10 +1,17 @@
 {
   "schemaVersion": 1,
   "id": "axiom_worldedit_gui",
-  "version": "0.2.0",
-  "name": "Axiom WorldEdit GUI",
+  "version": "${version}",
+  "name": "Axiom: WorldEdit Tools",
   "description": "Use WorldEdit from inside the Axiom editor: a WorldEdit menu, forms for every command, WorldEdit brushes as an Axiom tool, Axiom selections in WorldEdit, and one undo history (Ctrl+Z) for both. Singleplayer only.",
+  "authors": ["${author}"],
+  "contact": {
+    "homepage": "${homepage}",
+    "sources": "${sources}",
+    "issues": "${issues}"
+  },
   "license": "GPL-3.0-only",
+  "icon": "assets/axiom_worldedit_gui/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": ["dev.axiomwegui.AxiomWorldEditGui"]

@@ -18,6 +18,7 @@ public final class WeMenu {
         }
         try {
             boolean ready = WeSchema.status() == WeSchema.Status.READY;
+            item("menu.brushes", WeWindows.BRUSHES, ready);
             item("menu.operations", WeWindows.OPERATIONS, ready);
             item("menu.console", WeWindows.CONSOLE, ready);
             item("menu.commands", WeWindows.COMMANDS, ready);
@@ -32,6 +33,10 @@ public final class WeMenu {
             boolean hideCui = GuiConfig.isHideCuiInEditor();
             if (ImGui.menuItem(Tr.t("menu.hide_cui") + "##axiom_we_menu_cui", "", hideCui, true)) {
                 GuiConfig.setHideCuiInEditor(!hideCui);
+            }
+            boolean carry = GuiConfig.isBrushCarryOver();
+            if (ImGui.menuItem(Tr.t("menu.brush_carry") + "##axiom_we_menu_carry", "", carry, true)) {
+                GuiConfig.setBrushCarryOver(!carry);
             }
             ImGui.separator();
             ImGui.textDisabled(Ui.e(statusLine()));

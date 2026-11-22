@@ -4,7 +4,8 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-VERSION="0.2.0"
+prop() { grep "^$1=" mod.properties | cut -d= -f2- | tr -d '\r'; }
+VERSION="$(prop mod_version)+mc$(prop minecraft_version)"
 JDK="${JDK:-/c/Program Files/Java/jdk-25.0.2}"
 PRISM="${PRISM:-$(cygpath -m "$APPDATA")/PrismLauncher}"
 LIBS="$PRISM/libraries"
@@ -34,13 +35,16 @@ CP="$CP;build/deps/META-INF/jars/axiomclientapi-unobf.jar"
 for j in build/deps/META-INF/jars/fabric-*.jar; do CP="$CP;$j"; done
 "$JDK/bin/javac" --release 25 -proc:none -encoding UTF-8 -Xlint:-options -cp "$CP" -d build/classes $(find src/main/java -name '*.java')
 cp -r src/main/resources/. build/classes/
+# fabric.mod.json carries placeholders for what mod.properties says.
+sed -i -e "s|\${version}|$VERSION|" -e "s|\${author}|$(prop author)|" -e "s|\${homepage}|$(prop homepage)|" \
+  -e "s|\${sources}|$(prop sources)|" -e "s|\${issues}|$(prop issues)|" build/classes/fabric.mod.json
 cp LICENSE build/classes/LICENSE_axiom_worldedit_gui
-"$JDK/bin/jar" --create --file "build/axiom-worldedit-gui-$VERSION.jar" -C build/classes .
-echo "Built build/axiom-worldedit-gui-$VERSION.jar"
+"$JDK/bin/jar" --create --file "build/axiom-worldedit-tools-$VERSION.jar" -C build/classes .
+echo "Built build/axiom-worldedit-tools-$VERSION.jar"
 
 if [ "${1:-}" = "--install" ]; then
   # Two versions of the addon in mods/ would stop the game from starting.
-  rm -f "$MODS"/axiom-worldedit-gui-*.jar
-  cp "build/axiom-worldedit-gui-$VERSION.jar" "$MODS/"
+  rm -f "$MODS"/axiom-worldedit-gui-*.jar "$MODS"/axiom-worldedit-tools-*.jar
+  cp "build/axiom-worldedit-tools-$VERSION.jar" "$MODS/"
   echo "Copied to $MODS"
 fi

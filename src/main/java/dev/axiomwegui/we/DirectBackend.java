@@ -149,6 +149,37 @@ public final class DirectBackend {
         }, "");
     }
 
+    /**
+     * Every value WorldEdit accepts for an argument type (tree types, region shapes, biomes, items...), read
+     * from the converter WorldEdit uses for that type. Registry types first offer only their namespaces
+     * ("minecraft:"); those are expanded. Empty if the type has no fixed list (numbers, text).
+     */
+    public static CompletableFuture<List<String>> values(org.enginehub.piston.inject.Key<?> key) {
+        return onServer(actor -> valuesOf(key), List.of());
+    }
+
+    private static <T> List<String> valuesOf(org.enginehub.piston.inject.Key<T> key) {
+        PlatformCommandManager commands = WorldEdit.getInstance().getPlatformManager().getPlatformCommandManager();
+        var converter = commands.getCommandManager().getConverter(key).orElse(null);
+        if (converter == null) {
+            return List.of();
+        }
+        var none = org.enginehub.piston.inject.InjectedValueAccess.EMPTY;
+        java.util.LinkedHashSet<String> out = new java.util.LinkedHashSet<>();
+        for (String value : converter.getSuggestions("", none)) {
+            if (value.endsWith(":")) {
+                for (String inner : converter.getSuggestions(value, none)) {
+                    if (!inner.endsWith(":")) {
+                        out.add(inner);
+                    }
+                }
+            } else {
+                out.add(value);
+            }
+        }
+        return List.copyOf(out);
+    }
+
     /** WorldEdit's own completions for a partly typed command line, e.g. {@code //set ston}. */
     public static CompletableFuture<List<String>> suggest(String partialLine) {
         return onServer(actor -> {

@@ -8,6 +8,8 @@
     "CoreMcPlayerMixin",
     "DispatcherAccessor",
     "EditorUIMixin",
+    "LevelDelegateProxyMixin",
+    "LevelSetBlockMixin",
     "LocalSessionMixin",
     "MainMenuBarMixin",
     "MaskManagerAccessor",

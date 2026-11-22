@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<!-- Axiom WorldEdit GUI: a selection cube (white frame, corner points) with faces in the X / Y / Z axis colours -->
+<polygon fill="#ff002b" points="82,194 318,194 318,430 82,430"/>
+<polygon fill="#00ff56" points="82,194 194,82 430,82 318,194"/>
+<polygon fill="#00aaff" points="318,194 430,82 430,318 318,430"/>
+<polyline fill="none" stroke="#fff" stroke-width="26" stroke-linejoin="round" stroke-linecap="round" points="82,194 318,194 318,430 82,430 82,194"/>
+<polyline fill="none" stroke="#fff" stroke-width="26" stroke-linejoin="round" stroke-linecap="round" points="82,194 194,82 430,82 430,318 318,430"/>
+<polyline fill="none" stroke="#fff" stroke-width="26" stroke-linejoin="round" stroke-linecap="round" points="318,194 430,82"/>
+<circle cx="82" cy="194" r="27" fill="#fff"/>
+<circle cx="318" cy="194" r="27" fill="#fff"/>
+<circle cx="318" cy="430" r="27" fill="#fff"/>
+<circle cx="82" cy="430" r="27" fill="#fff"/>
+<circle cx="194" cy="82" r="27" fill="#fff"/>
+<circle cx="430" cy="82" r="27" fill="#fff"/>
+<circle cx="430" cy="318" r="27" fill="#fff"/>
+</svg>

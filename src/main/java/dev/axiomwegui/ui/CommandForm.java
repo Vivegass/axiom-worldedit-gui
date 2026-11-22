@@ -1,5 +1,6 @@
 package dev.axiomwegui.ui;
 
+import com.moulberry.axiom.editor.widgets.SearchableCombo;
 import dev.axiomwegui.Tr;
 import dev.axiomwegui.we.DirectBackend;
 import dev.axiomwegui.we.WeCommand;
@@ -73,12 +74,77 @@ public final class CommandForm {
         return lastResult;
     }
 
+    /** Hides the run button; the owner sends {@link #currentLine()} itself (e.g. on every change). */
+    public CommandForm withoutRunButton() {
+        this.showRunButton = false;
+        return this;
+    }
+
+    private boolean showRunButton = true;
+
+    private Field find(String name) {
+        for (Field field : groupFields) {
+            if (field.param.name().equals(name)) {
+                return field;
+            }
+        }
+        for (Field field : fields) {
+            if (field.param.name().equals(name)) {
+                return field;
+            }
+        }
+        return null;
+    }
+
+    /** True if the command (or its group) has an argument or flag with this name. */
+    public boolean has(String name) {
+        return find(name) != null;
+    }
+
+    /** The typed value of an argument, or its default if empty, or "" if neither. */
+    public String valueOrDefault(String name) {
+        Field field = find(name);
+        if (field == null) {
+            return "";
+        }
+        String value = field.value();
+        if (value.isEmpty() && !field.param.defaults().isEmpty()) {
+            return String.join(",", field.param.defaults());
+        }
+        return value;
+    }
+
+    /** Sets the text of an argument (used by Ctrl+middle-mouse radius adjustment). */
+    public void setValue(String name, String value) {
+        Field field = find(name);
+        if (field != null) {
+            field.set(value);
+        }
+    }
+
+    /** Puts {@code value} into every required pattern argument nobody has filled in yet. Returns true if any changed. */
+    public boolean fillUntouchedPatterns(String value) {
+        boolean changed = false;
+        for (List<Field> list : List.of(groupFields, fields)) {
+            for (Field field : list) {
+                if (field.pattern != null && field.pattern.isPattern() && field.pattern.untouched()
+                        && field.param.kind() == WeParam.Kind.ARGUMENT && field.param.required()) {
+                    field.pattern.set(value);
+                    changed = true;
+                }
+            }
+        }
+        return changed;
+    }
+
     /** One input of the form. Exactly one of {@code pattern}, {@code text}, {@code checked} is used. */
     private static final class Field {
         final WeParam param;
         final PatternField pattern;
         final ImString text;
         final ImBoolean checked;
+        SearchableCombo combo = null;
+        List<String> comboEntries = null;
 
         Field(WeParam param) {
             this.param = param;
@@ -180,10 +246,139 @@ public final class CommandForm {
         String hint = hint(p);
         if (field.pattern != null) {
             field.pattern.render(fieldId, hint);
-        } else {
-            ImGui.setNextItemWidth(-1);
-            ImGui.inputTextWithHint("##" + fieldId, hint, field.text);
+            return;
         }
+        Slider slider = Slider.of(p);
+        if (slider != null) {
+            renderSlider(field, fieldId, slider);
+            return;
+        }
+        List<String> values = ValueLists.of(p);
+        if (values != null && !values.isEmpty()) {
+            renderValueList(field, fieldId, values, hint);
+            return;
+        }
+        ImGui.setNextItemWidth(-1);
+        ImGui.inputTextWithHint("##" + fieldId, hint, field.text);
+    }
+
+    // ---------------------------------------------------------------- sliders
+
+    /** Numbers that get a slider, like radius and density in Axiom's own tools. Ctrl+click types any value. */
+    private record Slider(float min, float max, boolean integer) {
+        static Slider of(WeParam p) {
+            String type = p.type();
+            boolean integer = type.equals("int") || type.equals("Integer");
+            if (!integer && !type.equals("double") && !type.equals("Double")) {
+                return null;
+            }
+            return switch (lower(p.name())) {
+                case "radius", "brushsize", "size" -> new Slider(0, 64, true);
+                case "density" -> new Slider(0, 100, integer);
+                case "height" -> new Slider(1, 64, true);
+                case "iterations" -> new Slider(1, 20, true);
+                case "decay" -> new Slider(0, 10, true);
+                case "intensity" -> new Slider(0, 20, integer);
+                case "minerodefaces", "mindilatefaces" -> new Slider(1, 6, true);
+                case "numerodeiterations", "numdilateiterations" -> new Slider(1, 10, true);
+                // //brush gravity -h: how far up and down blocks are affected.
+                case "-h" -> new Slider(1, 384, true);
+                // //brush snowsmooth -l: snow blocks kept under the snow layers.
+                case "-l" -> new Slider(0, 10, true);
+                default -> null;
+            };
+        }
+    }
+
+    private void renderSlider(Field field, String fieldId, Slider slider) {
+        String shown = field.value();
+        if (shown.isEmpty() && !field.param.defaults().isEmpty()) {
+            shown = field.param.defaults().get(0);
+        }
+        float value;
+        // Empty and no number to show (e.g. gravity's "default-vertical-height"): the slider says "default".
+        String format = null;
+        try {
+            value = Float.parseFloat(shown.trim());
+        } catch (NumberFormatException e) {
+            value = slider.min();
+            format = Tr.t("form.slider_default").replace("%", "%%");
+        }
+        ImGui.setNextItemWidth(-1);
+        if (slider.integer()) {
+            int[] v = {Math.round(value)};
+            if (ImGui.sliderInt("##" + fieldId, v, (int) slider.min(), (int) slider.max(), format == null ? "%d" : format)) {
+                field.text.set(Integer.toString(v[0]));
+            }
+        } else {
+            float[] v = {value};
+            if (ImGui.sliderFloat("##" + fieldId, v, slider.min(), slider.max(), format == null ? "%.1f" : format)) {
+                field.text.set(String.format(Locale.ROOT, "%.1f", v[0]).replaceAll("\\.0$", ""));
+            }
+        }
+        if (ImGui.isItemHovered()) {
+            ImGui.setTooltip(Ui.e(Tr.t("form.slider_tooltip")));
+        }
+        if (ImGui.isItemClicked(1)) {
+            field.text.set("");
+        }
+    }
+
+    // ---------------------------------------------------------------- value lists
+
+    private static String shortName(String value) {
+        return value.startsWith("minecraft:") ? value.substring("minecraft:".length()) : value;
+    }
+
+    /**
+     * A dropdown of every value WorldEdit accepts for this argument. It is Axiom's own searchable combo, the
+     * one its tools use: open it and type to filter.
+     */
+    private void renderValueList(Field field, String fieldId, List<String> values, String hint) {
+        if (field.value().isEmpty() && field.param.required() && field.param.type().equals("RegionFactory")
+            && values.contains("sphere")) {
+            // A shape is required but WorldEdit has no default for it; start with a sphere.
+            field.text.set("sphere");
+        }
+        String current = field.value();
+        List<String> entries = new ArrayList<>();
+        if (!field.param.required()) {
+            entries.add(""); // WorldEdit's default
+        }
+        entries.addAll(values);
+        int selected = entries.indexOf(current);
+        if (selected < 0 && !current.isEmpty()) {
+            for (int i = 0; i < entries.size(); i++) {
+                if (shortName(entries.get(i)).equals(current)) {
+                    selected = i;
+                }
+            }
+            if (selected < 0) {
+                // Typed by hand or set elsewhere: keep it selectable.
+                entries.add(current);
+                selected = entries.size() - 1;
+            }
+        }
+        if (field.combo == null || !entries.equals(field.comboEntries)) {
+            String[] labels = new String[entries.size()];
+            for (int i = 0; i < labels.length; i++) {
+                String entry = entries.get(i);
+                labels[i] = entry.isEmpty() ? defaultLabel(field.param, hint) : shortName(entry);
+            }
+            field.combo = new SearchableCombo(labels);
+            field.comboEntries = entries;
+        }
+        int[] index = {selected};
+        ImGui.setNextItemWidth(-1);
+        if (field.combo.render("##" + fieldId, index) && index[0] >= 0 && index[0] < entries.size()) {
+            field.text.set(entries.get(index[0]));
+        }
+    }
+
+    private static String defaultLabel(WeParam p, String hint) {
+        List<String> defaults = p.defaults();
+        boolean hasDefault = !defaults.isEmpty() && !(defaults.size() == 1 && defaults.get(0).isEmpty());
+        return hasDefault ? Tr.t("form.default", String.join(",", defaults)) : hint;
     }
 
     private static String hint(WeParam p) {
@@ -205,14 +400,16 @@ public final class CommandForm {
             running = null;
         }
         String line = buildLine();
-        ImGui.beginDisabled(busy);
-        if (ImGui.button((runLabel != null ? runLabel : Tr.t("form.run")) + "##run")) {
-            if (line != null) {
-                running = runner.apply(line);
+        if (showRunButton) {
+            ImGui.beginDisabled(busy);
+            if (ImGui.button((runLabel != null ? runLabel : Tr.t("form.run")) + "##run")) {
+                if (line != null) {
+                    running = runner.apply(line);
+                }
             }
+            ImGui.endDisabled();
+            ImGui.sameLine();
         }
-        ImGui.endDisabled();
-        ImGui.sameLine();
         if (ImGui.smallButton(Tr.t("form.copy") + "##copy") && line != null) {
             ImGui.setClipboardText(line);
         }
